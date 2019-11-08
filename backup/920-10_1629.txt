@@ -1,0 +1,4295 @@
+Building configuration...
+
+  
+Current configuration : 111793 bytes
+!
+version 15.6
+no service pad
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+service password-encryption
+service compress-config
+no platform punt-keepalive disable-kernel-core
+platform bfd-debug-trace 1
+platform xconnect load-balance-hash-algo mac-ip-instanceid
+platform qos-mark cos 4 vlanid 100 ipaddress 10.101.0.20
+platform tcam-parity-error enable
+platform tcam-threshold alarm-frequency 1
+platform shell
+platform reload immediate
+!
+hostname asr920-10
+!
+boot-start-marker
+boot system bootflash:asr920igp-universalk9.03.18.04.SP.156-2.SP4-ext.bin
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging buffered 7000000
+no logging console
+!
+no aaa new-model
+ethernet cfm ieee 
+ethernet cfm global
+ethernet cfm traceroute cache
+ethernet cfm traceroute cache hold-time 60
+ethernet cfm domain 101 level 0
+ service rep port
+  continuity-check
+  continuity-check interval 3.3ms
+  efd notify rep
+!
+ethernet cfm logging
+clock timezone ICT 7 0
+facility-alarm critical exceed-action shutdown
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+rep admin vlan 10
+!
+!
+!
+!
+multilink bundle-name authenticated
+license feature ptp
+license feature gnss
+license udi pid ASR-920-12SZ-IM-CC sn CAT2106U490
+license accept end user agreement
+license boot level advancedmetroipaccess
+archive
+ log config
+  logging enable
+!
+!
+mac access-list extended MAC_ACL
+ permit host 294a.f5e9.d791 host 295b.7593.9e82
+ permit host 266e.8cb3.0f96 host 2220.7b06.80c5
+ permit host 253f.d327.fcc8 host 1dfd.9ded.434f
+ permit host 095d.e795.7e62 host 2c75.083c.5576
+ deny   host 0548.9d25.b437 host 1950.2a82.3c80
+ deny   host 0bd7.4390.0710 host 097c.f437.150c
+ deny   host 1e33.f97d.3c93 host 0561.b238.f6ef
+ deny   host 1c77.0603.69dd host 035f.18ad.31e1
+ deny   host 34e8.480e.c057 host 0118.7e25.6b42
+ deny   host 2ba7.2470.3c1b host 0c82.31d7.385f
+ deny   host 3b1a.a409.ea50 host 1ece.e8f9.c08d
+ permit host 0207.2bd2.7124 host 229b.324e.ad5d
+ permit host 1875.c6e8.1b34 host 23df.f4cb.8cb2
+ permit host 3d97.0824.81e5 host 273d.28c8.71a4
+ permit host 2c04.b5de.50a5 host 2153.555a.d15d
+ deny   host 0814.6fca.c696 host 1a47.b17e.3c5e
+ permit host 16d8.1212.2d63 host 2e12.6802.54f0
+ deny   host 2c92.e01c.f5d8 host 267a.2cf6.c208
+ permit host 0e67.e4ec.6d20 host 063b.faf9.d492
+ deny   host 10b3.cc42.2c98 host 2acb.876a.725b
+ permit host 37e9.1f98.5042 host 1640.60fd.4351
+ deny   host 1523.081a.d26b host 105c.6e67.ab3a
+ permit host 380a.b47f.c026 host 2fec.eb59.872f
+ permit host 3717.cfad.13d3 host 24b1.b847.e477
+ permit host 09dc.db51.7c8e host 3ebc.1d11.038d
+ deny   host 3ec6.d05a.7938 host 189e.13a8.2544
+ deny   host 185d.a09b.4308 host 06e4.0f1d.9c7b
+ permit host 271a.0c5a.220f host 1ca0.5400.63dd
+ permit host 3608.b534.1aae host 0eec.777c.ccff
+ deny   host 135e.3084.09af host 3a2d.e18f.f4d6
+ permit host 31c4.6f78.d93f host 1b85.7aed.1a21
+ permit host 2b1f.d508.c5c6 host 133a.59cb.c861
+ permit host 1dc0.61b1.075d host 2224.d4b0.d9f8
+ permit host 327a.7a0e.bb9e host 3166.9446.16d5
+ permit host 2a82.206d.d02d host 36da.3f9b.6555
+ permit host 290a.5433.dd9f host 01d2.99e9.7b49
+ permit host 0513.ef64.1a44 host 1c02.db2a.1651
+ deny   host 0c7b.c10a.6c82 host 2473.9209.32ec
+ deny   host 3e00.1d30.c981 host 0f7b.f934.0c5c
+ deny   host 3a15.be26.9066 host 10fe.76ce.50d0
+ deny   host 3bd3.216b.3167 host 38a7.28f4.fb70
+ deny   host 3b40.62b4.2e34 host 2dcf.47a2.0215
+ deny   host 204e.ba11.24d7 host 06ff.948c.4c57
+ deny   host 0ff8.46a5.cb53 host 2498.8f13.94ab
+ permit host 1b1f.ba0f.9b01 host 1b4a.264c.f947
+ deny   host 29c9.86ca.7f1b host 0576.7dde.e970
+ permit host 03d9.c60f.f6b7 host 3089.437f.df48
+ deny   host 01f0.9994.57b4 host 2dc7.0844.6cfe
+ permit host 1c57.5033.d580 host 02c6.3c10.19ae
+ permit host 3359.d50b.4579 host 267f.b6a5.ed6c
+ permit host 0325.8a4d.1486 host 0af9.a5ac.14c3
+ deny   host 3537.f859.5316 host 2c9a.5e8b.363d
+ deny   host 0580.8633.a14a host 1bc4.9758.ff6c
+ permit host 01ec.9d09.da88 host 106c.ae59.2cfb
+ deny   host 1980.05b5.50df host 39f9.0db4.7da3
+ deny   host 0b46.5bfe.483b host 1b78.f09d.f121
+ deny   host 35f6.076a.18db host 358f.3ad8.c78d
+ permit host 044a.ab86.236d host 2dac.b1ad.db31
+ deny   host 0288.7f91.65f9 host 107e.3207.3e3b
+ deny   host 30db.741f.1a78 host 28ce.728c.3e40
+ permit host 03d5.636a.7a72 host 2b51.746a.5e8a
+ permit host 2ce1.557a.bf29 host 1120.f6e3.a70a
+ deny   host 1249.b69e.0f1a host 0e05.4086.24ad
+ permit host 1974.aa1e.e6c6 host 1943.0442.6ce4
+ deny   host 2017.8263.0b9c host 31de.d73e.4e43
+ permit host 3094.c7b9.e341 host 0955.b41d.f0e6
+ permit host 236e.1ece.40d7 host 3458.a675.3fb6
+ permit host 10f9.270b.6021 host 15eb.18c0.f3c1
+ permit host 13ba.adc8.20a3 host 29d5.99eb.fb91
+ deny   host 3e47.e954.4af9 host 2dda.0d6d.6c3b
+ deny   host 2dcb.7376.d41d host 04d7.128e.3a80
+ deny   host 2994.8e7b.befd host 15e7.e582.ad5b
+ permit host 1169.4769.4447 host 0a7a.f118.9e18
+ permit host 3274.c3c3.7af4 host 0ffb.75a3.8c92
+ permit host 0cfc.d1b4.82f7 host 0981.8bc1.02d4
+ permit host 0a3c.197c.95bf host 112f.08f3.3c70
+ deny   host 3c23.e62b.d2ee host 18a1.46c0.8490
+ permit host 093c.924a.910c host 1f1b.afec.aee4
+ permit host 0c1a.147e.11ba host 2689.6c47.0fb6
+ deny   host 25ba.23bc.be4d host 3b81.b0b6.a222
+ deny   host 2d98.07f3.0aaf host 3da5.e252.046f
+ permit host 10fc.c57d.9e41 host 2eab.fcb8.3c97
+ deny   host 3df9.6667.ddc0 host 3938.f91d.419a
+ deny   host 2db8.4d20.cd72 host 21c5.20f4.dea8
+ permit host 1a3c.aaa8.2877 host 37a5.adc4.a184
+ permit host 0c4b.dba6.22dd host 0ec0.b500.ea81
+ deny   host 1e69.e6b5.fbcb host 309e.2a64.2fcd
+ deny   host 1077.bdb8.ebdc host 3268.466c.d6dd
+ permit host 1fa7.ed8b.ffe6 host 0854.89ca.367a
+ deny   host 24f4.b7b1.aed4 host 25e6.b0d4.aa48
+ deny   host 248f.e333.5b91 host 098f.f83c.622c
+ deny   host 237b.8634.2bea host 39b2.f12c.a9ce
+ permit host 2abb.24ff.e012 host 3e1e.d6d6.39b4
+ permit host 3217.6cfe.8279 host 08da.3d25.4cb5
+ deny   host 1f81.b09f.33d3 host 1681.a3c8.a8ce
+ deny   host 1091.6392.40bf host 0f39.09b7.f7de
+ deny   host 2e13.2f19.f3a9 host 017b.0b9f.06fd
+ deny   host 1609.b44d.20cf host 0bad.c228.c5fb
+ permit host 2bc2.c072.c94c host 3e91.5d42.0274
+ permit host 04b5.0572.f44f host 3076.e1f2.902c
+ permit host 0a33.e404.ebd8 host 1f5d.c4df.da13
+ permit host 0908.d299.ce3f host 3410.1b17.2e94
+ permit host 0ce5.96c3.501e host 07b3.9c90.efb3
+ deny   host 1449.ef1d.bee6 host 19f5.29f2.b12e
+ deny   host 0ff8.1d84.14e2 host 0eb1.510b.e1f8
+ permit host 0610.6f3c.1e24 host 0053.c5a4.5be7
+ deny   host 0e57.ae40.f4f7 host 08a1.e0d8.f6fc
+ deny   host 3013.58e9.a9c1 host 23da.c00a.5fef
+ deny   host 2beb.e1ab.ab7a host 2e89.ee1c.6c83
+ deny   host 0e3a.9795.3e3e host 3a97.20d1.2823
+ deny   host 3216.a24d.e83e host 288c.7210.4877
+ permit host 27cd.afeb.8559 host 1e3d.b01c.8f48
+ deny   host 0b38.f5a7.17df host 381f.5d74.3e30
+ permit host 08c7.a53b.d6e2 host 275b.1db4.6f84
+ deny   host 3030.07d4.b86d host 270a.872f.0ea0
+ deny   host 116e.3794.df9d host 3c13.b2f7.92d9
+ deny   host 3a30.815a.9f2e host 1fb8.c0ed.8554
+ permit host 1dd3.7503.c958 host 1d59.386d.ba77
+ permit host 0a56.0a6e.27fe host 178a.d0c5.8fd8
+ deny   host 2544.7db4.5e16 host 3ac6.b9df.74a0
+ deny   host 2589.ccda.037d host 1aa2.6ee5.80ce
+ deny   host 0b55.ea12.a3c2 host 0999.e300.9ae7
+ deny   host 3645.e463.8ba0 host 0726.0362.d733
+ permit host 2f7a.c5be.52fb host 0e8a.28db.caa5
+ permit host 1ac8.8115.bf5f host 1d13.50a6.54dc
+ permit host 1e4e.6b69.f269 host 21e9.7a5c.1e71
+ deny   host 0dcb.0757.0e3b host 121e.6248.b101
+ permit host 212b.703b.ca4b host 16ff.812a.fc0b
+ permit host 1d0e.c0ae.d7ed host 1046.b84c.26b6
+ permit host 17fe.fed5.67c2 host 1bb3.e6fc.7b22
+ permit host 3e45.c829.952d host 1375.e497.9e9d
+ permit host 10bb.3a53.008b host 3452.1203.3397
+ deny   host 2d8c.7d63.7624 host 36a5.28de.28ab
+ deny   host 0a2b.832e.304b host 33a4.1772.fe23
+ deny   host 2d6b.c5dd.635c host 11db.3db2.3ff7
+ deny   host 327b.0ed7.8e67 host 25b2.8f88.ed4c
+ permit host 219f.289c.4415 host 1d9c.d11b.6ef5
+ deny   host 10e6.fda9.2228 host 3337.ee92.db31
+ deny   host 2447.b287.77c8 host 01da.56fb.ba04
+ permit host 060a.1750.2b28 host 066e.8bb6.c968
+ deny   host 0419.811c.38f0 host 2ce0.016f.84eb
+ deny   host 3464.23b0.c0a2 host 2d64.a5d6.6083
+ deny   host 1a94.b340.2892 host 01d1.9744.257a
+ permit host 3bbb.4e54.df5e host 1d55.969a.4e8e
+ deny   host 0061.9dcc.711d host 329b.6691.db1d
+ deny   host 0e53.e357.e9f9 host 0c97.6572.a425
+ permit host 321c.03cd.c5e2 host 3413.d11b.c1cb
+ permit host 2908.f2e5.d2a6 host 0e6b.9441.5f95
+ deny   host 1846.0099.da62 host 1009.bf81.fbcb
+ deny   host 2805.27f2.44bf host 39a8.2bde.ba09
+ permit host 29da.3c53.7852 host 1c79.4c58.76c1
+ permit host 0a1d.5bf7.ab73 host 2e91.88ca.e434
+ deny   host 12c1.b557.e66d host 1c40.3fb5.901b
+ deny   host 01e7.8230.4fae host 342a.9de4.02c0
+ deny   host 2354.5ab8.986f host 3253.752f.6c69
+ permit host 2ce6.faaf.5f78 host 042c.5fd2.d09b
+ permit host 05e7.db2b.c91b host 262a.40c7.b666
+ deny   host 3e44.7273.9232 host 1917.b814.754d
+ deny   host 31da.ba65.7fe1 host 159e.31ce.3893
+ deny   host 30fe.e635.c7e9 host 15aa.5cac.5fa9
+ permit host 3313.8001.9caf host 079a.fbcc.9649
+ permit host 0109.9bdf.0ec9 host 135e.8f01.5b5b
+ deny   host 3e7f.ec6a.ab49 host 28b4.2263.0d17
+ permit host 2dc5.572f.0a08 host 2fff.bc21.ebb2
+ deny   host 3aa0.44e1.beea host 1537.32e7.459f
+ permit host 1fcf.cd08.cc9f host 335c.d483.114c
+ deny   host 0229.3b0f.0493 host 3de1.6606.f140
+ permit host 2c5f.d225.11cb host 2b3c.0544.e223
+ permit host 0654.7449.3d2e host 1b4f.2622.dc40
+ deny   host 15f7.46bd.abbe host 04b1.8db9.57b6
+ deny   host 0eaf.ccbc.7924 host 2087.bbe0.ade5
+ deny   host 22e8.97ea.286d host 3356.d213.cf9e
+ permit host 0e8a.9608.1c66 host 3d77.b502.f525
+ permit host 0301.32bc.9303 host 12b4.cde6.b764
+ deny   host 0336.ea08.7c0f host 15c9.f837.e09e
+ permit host 3853.e84a.b4d3 host 3a9e.b995.77cf
+ deny   host 0809.252f.0486 host 1852.b299.c076
+ permit host 1837.32a8.fdf8 host 1972.c220.5a67
+ permit host 23a0.f777.8feb host 13e6.2181.75ad
+ deny   host 059b.7232.5c86 host 0e69.1fda.3528
+ permit host 20b3.961b.55f8 host 20da.d414.68c8
+ deny   host 3281.a480.90d3 host 123b.ec9f.1d50
+ deny   host 224f.f88d.8940 host 3a34.102d.d801
+ deny   host 095e.67b2.0b80 host 3e7a.33f7.b3ff
+ deny   host 22c5.9684.a01f host 16ba.d2ae.8826
+ permit host 135c.cc16.9ec2 host 0991.98ca.d050
+ deny   host 3293.5bbd.1e5f host 0559.bd6c.0748
+ deny   host 3342.39db.8737 host 2a21.332f.b205
+ deny   host 2330.e00b.7834 host 2d79.6e8f.df7f
+ deny   host 270e.30f8.b612 host 06b7.674d.9844
+ deny   host 0e7b.886f.b9ff host 1418.a3dc.6a56
+ permit host 3a7d.136b.de8e host 3d52.9f4c.f5d9
+ permit host 3ae9.1bee.a60b host 2f04.142a.b63e
+ deny   host 0882.588a.ada4 host 2878.acba.eda4
+ permit host 2e88.b41e.98f8 host 3789.0de2.de61
+ permit host 2b08.790a.ef0a host 146f.7bcb.8ad4
+ deny   host 233e.2d01.432e host 05ed.18e3.9477
+ permit host 1ed6.e35c.fe23 host 2711.73f9.3b59
+ deny   host 37d4.8c77.7195 host 04da.fa93.9ced
+ deny   host 108b.5c10.578f host 33b0.f3d2.390b
+ permit host 23ab.28d9.5a6c host 3e31.fb2f.f641
+ permit host 34df.0cb2.cd0a host 1e28.11ae.ed91
+ deny   host 2050.d2c0.dd24 host 3b94.8b47.329c
+ deny   host 1051.d26e.f948 host 33d2.7dac.328d
+ deny   host 16c1.0262.36db host 2220.2ebf.a5bd
+ deny   host 15cd.4ca4.c636 host 09ae.4a75.1e5f
+ permit host 0e63.751c.f3b5 host 0bf6.7212.d73f
+ deny   host 3584.96ef.5725 host 13f6.8f88.fe1c
+ deny   host 3cce.a7ee.e050 host 22c1.cc89.1906
+ permit host 00e5.2554.7dfe host 01ef.1601.ea27
+ permit host 136e.c1db.9167 host 21eb.e398.3f22
+ deny   host 38be.c520.f61e host 35a5.e4d8.36b6
+ deny   host 1b4a.8924.7088 host 3dbb.8547.e9b9
+ deny   host 0559.144a.2db9 host 2852.aee9.8f11
+ deny   host 0676.df52.b691 host 04ec.5d37.3c3c
+ permit host 1cf5.1801.d22b host 2178.46d2.59e0
+ permit host 3b40.21c3.83c3 host 2b47.b7f2.08b2
+ deny   host 3746.7079.d328 host 15f1.4632.738e
+ deny   host 0cf9.e0c8.06cb host 2c88.d232.de4e
+ deny   host 356d.e63a.a2cb host 12dd.05f1.22f2
+ deny   host 0c4e.7384.4d69 host 086c.3ba1.882c
+ deny   host 3a50.766d.0317 host 312f.2fc5.f38f
+ deny   host 0c80.03d9.ca28 host 3632.71b1.1e4d
+ permit host 10c2.b0aa.1d1b host 1a89.3cbb.1f82
+ permit host 3934.6c09.ffc2 host 1c65.c5d8.b146
+ deny   host 14f1.2cd1.221b host 1bee.7d0a.79e1
+ deny   host 1572.fbea.4e89 host 2367.a712.a661
+ deny   host 0604.ae3e.7e22 host 0933.a44b.cfef
+ permit host 32b6.0756.f216 host 00a5.8197.de9a
+ deny   host 32e3.fb12.2e00 host 18df.ec90.3a84
+ permit host 23c2.41b8.1689 host 1855.28a7.f6c6
+ deny   host 1c8e.5acd.f715 host 1e93.5b92.db87
+ deny   host 161a.249e.ee17 host 1870.82c3.7d92
+ deny   host 1457.ac60.60be host 33f8.f176.d3a8
+ deny   host 0dae.73ea.3b47 host 0313.a757.2dff
+ deny   host 1568.d6a0.4485 host 2f45.e01f.78ff
+ deny   host 2d12.1691.532c host 3431.e420.3ecf
+ deny   host 2c7e.7b9d.da7c host 3359.31a8.07c0
+ deny   host 3b28.a596.19ac host 38f6.87e4.8755
+ permit host 0b1e.2799.f6fd host 3421.db3d.b68d
+ deny   host 2b3d.a6cb.3885 host 1e20.e493.307a
+ permit host 2e96.e361.4d06 host 0e5d.49e3.0f47
+ deny   host 00f1.3690.1c16 host 1a20.75ca.1b97
+ permit host 2c5a.7061.656f host 2cae.1aef.7875
+ deny   host 0056.0a09.e6f9 host 06d5.d463.8b77
+ permit host 08d8.2131.7ba8 host 0482.9801.e86d
+ permit host 3c04.3723.db8a host 383c.fff9.7c45
+ permit host 0558.37df.e2a9 host 38fd.19a0.27e7
+ deny   host 2ff7.f452.64b4 host 0327.daa2.d17e
+ deny   host 3d9b.1faf.3af8 host 2b9e.f106.e886
+ permit host 0381.8571.96d2 host 2e54.e495.44cc
+ permit host 2209.8313.2a5b host 20a7.dafb.6bf2
+ deny   host 0f8e.0699.d8a1 host 30c6.b9d3.c871
+ deny   host 342d.2936.eb73 host 3567.3fb5.f0cd
+ deny   host 3cbd.9e66.afbe host 0cd1.17d3.47be
+ deny   host 1ba7.9b7e.54c7 host 093c.e9da.cf18
+ deny   host 2f98.ab67.123b host 2007.1aa0.ef47
+ permit host 003c.1cdb.6581 host 3753.8f25.8ea1
+ deny   host 2e26.c68f.bab5 host 359a.57f0.6a4a
+ permit host 204f.4310.ead8 host 2d59.9f82.ea8a
+ deny   host 0e68.d282.9364 host 07b9.d84b.e327
+ permit host 3bde.aec3.ef7e host 192c.c561.c371
+ deny   host 143f.317d.0030 host 04c3.7579.b0b8
+ permit host 0149.1f0a.63d3 host 0d44.2711.34fe
+ permit host 19de.3621.95d1 host 2b3c.f524.1ecb
+ deny   host 38a7.aa4f.1f37 host 3091.20ab.f571
+ deny   host 2243.5b5e.428c host 2aa4.9500.63f5
+ permit host 185f.0131.2f10 host 1c6d.698f.d25f
+ deny   host 2f73.61dd.3377 host 01c8.0125.7212
+ deny   host 379f.a595.e79b host 19ee.dcf4.709d
+ deny   host 3c91.8e13.1578 host 05c0.aa15.831b
+ permit host 1f7d.a969.357f host 0900.ca80.bbf2
+ deny   host 299b.7cb0.bdcd host 3122.953c.5e79
+ deny   host 086c.dc8e.2120 host 31a5.d0d0.f4cb
+ deny   host 20b7.b66a.dc84 host 1833.a323.a28b
+ permit host 323b.ebda.8996 host 12ae.c9bd.c670
+ permit host 32c1.a7e9.db5e host 1932.ee42.1e15
+ deny   host 0a9f.f06a.aed9 host 3245.0482.e533
+ permit host 3835.8d95.11e6 host 24d8.6239.62fe
+ permit host 111e.8b3c.85fe host 2435.a3ea.1edf
+ deny   host 1169.ad48.d5a7 host 3cfc.dfbe.aa52
+ deny   host 2d74.112f.b5ec host 2de1.c9fd.685a
+ deny   host 2a04.6bfb.3976 host 0505.1936.46f9
+ permit host 3834.ca7a.bf68 host 01e1.ab0a.be3c
+ permit host 1217.ceb7.2099 host 0fc3.57a9.9aa5
+ deny   host 19b1.d589.f645 host 38dd.e9cd.fe69
+ permit host 16ef.b831.7a79 host 3533.328f.04c0
+ permit host 1053.2041.8bed host 3576.399d.1744
+ permit host 3be8.2792.ee6a host 2bb3.1b53.9bc6
+ permit host 3cb8.da74.7e99 host 0e09.d62f.772a
+ deny   host 3ac2.d72e.c00d host 37a4.9cc0.116a
+ permit host 3b0a.4ec2.e9bc host 04c1.ddd7.7a2a
+ deny   host 1c9e.8b57.a723 host 0324.54e0.7e54
+ deny   host 22a5.16e3.c7e0 host 0738.2451.604a
+ permit host 18b3.4b9f.df3c host 0f08.2770.a60c
+ deny   host 0a60.338e.62c8 host 2ad2.4a95.ef8c
+ permit host 2448.c5f3.e333 host 337f.da62.6834
+ permit host 1399.14d4.67f4 host 36a5.38a0.7e35
+ permit host 0607.cfa3.0fdb host 085b.ea0e.b873
+ deny   host 1b51.b055.cd63 host 179e.8f6c.379b
+ permit host 36b7.c868.d60a host 3329.9f1d.304d
+ permit host 2492.e11b.48b0 host 3336.6af0.b5a4
+ deny   host 113b.f88f.4304 host 1e35.56cb.300c
+ deny   host 2fc2.bb84.46dd host 14fb.02d9.3942
+ permit host 1fcf.6656.b097 host 237c.169b.1b92
+ deny   host 0b6c.7f43.a40e host 3574.62cb.21b2
+ deny   host 2dbd.6193.ee7c host 2a80.f43d.d2be
+ permit host 165b.20cc.b6fa host 1038.0c75.b28f
+ permit host 3477.ca3f.bc54 host 3808.13b4.35b9
+ deny   host 3be7.7387.1681 host 372e.7376.3313
+ deny   host 06d2.3d3f.31d6 host 3a31.ff59.ad67
+ permit host 2ffe.e529.110c host 2b6b.a491.5aa8
+ deny   host 3d73.135a.4d5c host 2240.e514.7cbe
+ permit host 3e8d.6c80.9a9f host 1555.4dcd.cc90
+ permit host 3d8b.cd68.9621 host 075e.177a.b7a7
+ deny   host 1980.76d4.eb26 host 0186.cbe5.0d07
+ deny   host 15cf.558f.8b16 host 34d9.a587.58c5
+ deny   host 16cf.0ff0.4a64 host 3051.c126.fa46
+ permit host 37eb.20f5.0a02 host 0370.fe43.c1f5
+ permit host 3d21.41ba.60b5 host 1a70.8c1f.9605
+ deny   host 135f.f406.eec1 host 25c5.c036.37b6
+ permit host 2e3a.f713.17f8 host 1c3d.2a4c.31e3
+ permit host 282f.2d38.d2ff host 144d.fb10.c293
+ deny   host 0f61.4ccb.ed4f host 096d.56aa.7a42
+ deny   host 0611.7a8b.f7d8 host 1dd9.5264.7fa6
+ permit host 14fe.b66b.27b1 host 1ab5.b48d.7bd0
+ deny   host 3a30.b91c.cfe1 host 0345.dc42.0058
+ permit host 24c5.2844.3bda host 3890.b2a3.63c9
+ deny   host 34ae.5632.1db3 host 19e6.7322.759e
+ permit host 176d.b932.8f4c host 1a4a.e98f.6032
+ permit host 0562.9d76.59b2 host 2d0a.2e60.44eb
+ permit host 2996.e837.b434 host 3843.3231.c45e
+ permit host 0ecb.f62c.899b host 1369.8805.ebb7
+ permit host 1d98.e66a.4275 host 2aa1.f592.d834
+ deny   host 32be.4078.8e47 host 2ccf.9204.01e7
+ deny   host 0799.945d.d589 host 27a6.e7ed.a397
+ permit host 283e.68fb.a265 host 23f0.81be.45a9
+ permit host 14d7.1bc3.34bd host 3b7c.4ad4.0455
+ permit host 0ef2.c7e0.5f16 host 1871.de7c.4116
+ permit host 3667.6b1c.5e70 host 292d.dc19.781f
+ permit host 045b.7101.6e0f host 3480.c6e4.0ade
+ permit host 2a99.45be.7ec4 host 15ef.05d0.1fb4
+ permit host 1e14.ad17.5595 host 0ea5.0012.812f
+ deny   host 1d71.48c7.47f3 host 23a9.40c8.96b0
+ permit host 1512.4339.514e host 04ec.a025.7074
+ deny   host 14d2.6b01.a4df host 1d4e.cb46.b990
+ deny   host 3d58.d00b.0c88 host 19dd.db25.714d
+ deny   host 03ce.f977.5ae4 host 2253.5db5.3160
+ permit host 3b48.04cb.1d68 host 34cf.d705.a07f
+ permit host 26e5.8f63.aa78 host 3395.749d.23f4
+ permit host 3a43.678a.ed59 host 0270.b557.2eaa
+ permit host 370b.58c8.4d5b host 12ec.9567.2ca9
+ permit host 0465.ab98.659e host 2a0e.1e3f.e53f
+ deny   host 033c.11c2.5fed host 16eb.d989.7c6c
+ permit host 1f12.1f69.b957 host 0611.1928.1b1b
+ permit host 31e9.7ea7.05e4 host 2a89.a448.6ada
+ deny   host 1892.1aea.f2fd host 07cf.6d74.e4e6
+ permit host 040b.4022.f21e host 2216.d82d.1ef9
+ deny   host 21ad.ae53.4f17 host 1b9d.1a71.1907
+ deny   host 004d.8608.1fce host 1e1c.b177.bbad
+ deny   host 03aa.132f.500e host 153e.d097.98ff
+ permit host 2166.854e.e89e host 15ab.1c15.366d
+ deny   host 2cd4.7f2f.3dff host 1a14.59d0.d302
+ permit host 18d3.fb52.597b host 3dd9.2103.d535
+ permit host 0393.ac82.7e34 host 30b9.dd9d.8c70
+ deny   host 3895.31f9.bb72 host 2ec0.2b5b.8d6e
+ deny   host 38a5.46ba.e71f host 096b.05b4.ead1
+ deny   host 3363.54b8.ba23 host 0082.57b1.bb2b
+ deny   host 2c11.2e6e.8eb8 host 33d0.03be.fe11
+ deny   host 32f8.cfaf.9a16 host 22e9.047b.dfd1
+ permit host 0ecb.f5ea.c4d9 host 01e1.c028.60d9
+ permit host 3861.7279.f84b host 2a69.fdab.a863
+ deny   host 3c07.46f9.8756 host 1063.8b6e.df14
+ permit host 27fe.fc6b.dfbe host 1f34.a960.706d
+ permit host 0694.eebb.5262 host 25fa.d502.13d2
+ deny   host 1e89.6686.3301 host 2f14.67a4.b4f0
+ permit host 3aa7.5516.2828 host 14d2.b71e.4062
+ deny   host 119a.cd85.8714 host 1a6d.b57b.3a03
+ deny   host 1a71.5174.9dfd host 2e58.9ae1.c6cc
+ permit host 0d8a.ef4f.d179 host 1e3c.f26c.387e
+ deny   host 3601.4ed7.310f host 2170.eb62.0cbb
+ permit host 38a9.9b33.6c96 host 35e9.d9de.0f91
+ permit host 10e3.0a2c.9301 host 30b1.5151.08e8
+ deny   host 0cf4.445b.94d5 host 248d.d982.0bfa
+ deny   host 255e.4a0e.696b host 25c6.db41.b48e
+ deny   host 1a33.9e66.069b host 2e61.8400.1a61
+ deny   host 01d7.5fe4.6533 host 111a.c048.fe2c
+ deny   host 1ac1.679a.cfed host 2eb2.f0c8.bea3
+ permit host 202c.1cf5.f0dc host 2132.e75f.0fa2
+ permit host 0106.8211.2e81 host 038b.ea24.9edf
+ permit host 1366.d2bf.e5da host 1edc.f2dd.e515
+ deny   host 1786.a1c1.77a0 host 1c1c.15be.0fe6
+ permit host 2629.6899.c3ba host 1945.065d.3e64
+ deny   host 3ae0.1cd1.62d6 host 12ca.6c81.f7ac
+ permit host 2cc2.77df.9463 host 03df.d88d.977b
+ deny   host 0951.c31d.7d0e host 3ea4.9e5b.df60
+ deny   host 0cdd.92a0.d10e host 347d.fb2b.862b
+ permit host 160a.1ba8.1216 host 3b0d.1615.6e1d
+ permit host 094e.2fb6.9989 host 229d.7d52.fe46
+ deny   host 2824.5a91.d227 host 3bab.6f83.d4ef
+ deny   host 2a9d.efcf.c880 host 2d53.f3f2.db58
+ permit host 2a67.4b62.fc18 host 1c1e.63a0.bc3c
+ deny   host 13ee.cf08.9378 host 2680.10f3.712e
+ deny   host 37df.8511.617e host 2611.fb17.a241
+ permit host 37d2.f436.668d host 3b53.9d0b.7495
+ deny   host 04f0.c0d7.bac1 host 11a9.c20a.947e
+ permit host 2108.766f.69bd host 00ae.b9a1.51d0
+ deny   host 16af.dfcf.5378 host 382f.cb64.424a
+ deny   host 318c.cefa.42c2 host 2382.e9c8.71c3
+ deny   host 160d.58d2.b74e host 0877.99ee.679f
+ deny   host 3898.37e7.6ff5 host 070a.feeb.a38b
+ permit host 33e4.78ca.97f9 host 3e6e.2087.3bab
+ permit host 19d8.71c4.6924 host 0be3.5ca0.224a
+ permit host 0cc1.53b2.ad9d host 192b.d934.843b
+ deny   host 2b43.0013.44e5 host 3555.2399.1057
+ permit host 0075.d932.0c0d host 37b2.1089.1ef0
+ deny   host 3010.e4b5.9735 host 18d6.add1.d527
+ permit host 20b6.15c8.6740 host 132f.d199.d65e
+ deny   host 0786.ba96.0606 host 2783.edd7.5a1c
+ deny   host 2f6e.969c.f6e9 host 2eaf.9df1.c70c
+ deny   host 2530.5e03.e924 host 0b2d.90c7.c723
+ deny   host 0ba9.8740.c348 host 212c.0eb8.cf86
+ permit host 19e2.a660.82d1 host 17ce.0452.a5d6
+ permit host 2445.e60b.6454 host 16e1.5f1c.3e41
+ permit host 0ff4.d489.6f1f host 2220.79f5.d50f
+ permit host 1b91.276c.55e4 host 0f06.e869.9064
+ deny   host 3594.48f1.0820 host 3d3c.2f4e.6cd0
+ permit host 0492.8052.c141 host 0b40.a504.fc96
+ deny   host 128c.6cdf.3c71 host 3de4.33a0.542b
+ deny   host 3ed9.82f1.2789 host 1094.cf30.c9db
+ permit host 36e4.8248.c8db host 2bf8.7556.3aeb
+ permit host 3e21.1355.156a host 3606.b3c3.4778
+ permit host 34aa.3979.5e3b host 277c.42cd.6d06
+ deny   host 2442.d40c.8696 host 329e.9529.cfd7
+ permit host 004a.d5e9.a651 host 0ec6.9dde.f661
+ permit host 1f4f.cce9.4f0e host 377c.42a2.293a
+ deny   host 3a1e.7a26.5c08 host 14c2.6dc3.fcef
+ permit host 318f.d64a.9d87 host 1c34.972f.7701
+ permit host 39f1.2bce.1aca host 0c01.8f73.8e99
+ deny   host 3cb2.d6c3.04c5 host 32fe.9988.9fe0
+ permit host 0260.687c.4155 host 0049.a65d.c237
+ deny   host 0b54.9fe2.48a7 host 0805.3a47.ada6
+ deny   host 0571.8f1d.40da host 215a.9a5b.8720
+ deny   host 0c98.d9c1.2652 host 176c.449d.da37
+ deny   host 2264.6002.12db host 32ce.0cbf.1364
+ permit host 0aed.49e9.acd6 host 02b2.f91d.7cf3
+ permit host 0a40.96f4.b7c4 host 1d3e.8284.67d9
+ deny   host 017d.d070.14fd host 0617.0dbf.4aa9
+ permit host 12e3.254e.4f53 host 377b.0b66.8ae7
+ permit host 2e8b.1e9c.4f20 host 1616.4be1.8593
+ deny   host 1e86.82cc.dc03 host 1ed6.52ff.0e29
+ deny   host 38ca.0f69.f7ec host 30ca.2b8b.56fb
+ permit host 1097.3864.59ae host 1004.f23c.e851
+ deny   host 3c83.2124.b595 host 0482.b4a4.44af
+ permit host 2194.0da0.de94 host 36a6.83d2.9948
+ deny   host 3ce3.2ec8.a662 host 2520.e32b.36de
+ permit host 136a.a21e.c1ec host 1ffa.05ff.498d
+ deny   host 225d.feb9.917f host 0068.793b.4ff8
+ permit host 26aa.7d68.3267 host 2be0.8edf.d297
+ permit host 1356.2b41.fc67 host 0fa9.f3ee.2e17
+ deny   host 3b27.b844.5554 host 36e5.159a.bdd5
+ deny   host 39a6.fbe6.9992 host 05ee.9eea.5d44
+ permit host 30ac.7198.1603 host 0e2a.6fae.32b3
+ permit host 0c7b.d1f6.f743 host 2604.5998.81fd
+ deny   host 2b6d.5d3f.9da0 host 229f.b08f.60c8
+ deny   host 3e99.9de8.fb49 host 1eb0.1d9d.f03d
+ deny   host 0f1b.c19e.8ca6 host 1ebe.36d7.552e
+ deny   host 3a65.3686.8e52 host 27c0.cf1d.56a7
+ deny   host 2e30.2131.e5be host 273f.7e52.60f3
+ permit host 1a4f.9070.4692 host 1895.73d1.cf36
+ permit host 0ed5.9b19.af04 host 35fe.66f7.8557
+ permit host 0a94.7aff.ee37 host 3554.679e.eb05
+ permit host 26c5.16e0.2285 host 3c9e.cd57.fa3f
+ deny   host 124d.acdf.638f host 3eef.ba73.ca33
+ permit host 1391.3407.9885 host 1f80.1e87.fed4
+ permit host 261d.c3ae.f958 host 2577.e75e.6b1c
+ deny   host 09c4.f19e.0a56 host 3862.dfe2.b48d
+ deny   host 174b.6ab8.cf12 host 1712.96c8.954d
+ deny   host 3759.2675.68bf host 0f04.df56.947d
+ permit host 3697.0ff4.be03 host 2f5a.2902.0669
+ deny   host 3431.ab55.5bcc host 2e04.8d32.110c
+ deny   host 02c3.cc76.d17c host 3c72.b1a8.c966
+ deny   host 1e60.941f.3ba2 host 2f12.49cc.056d
+ deny   host 3c94.6e00.6e59 host 0287.0ccf.b826
+ permit host 2261.d73e.5896 host 2125.9502.3ba2
+ permit host 2a33.76a0.db37 host 22e8.6d63.203b
+ deny   host 2522.9166.97d7 host 2672.2482.4627
+ deny   host 34eb.eab6.c010 host 15db.7f84.77bf
+ permit host 25c7.9760.abd7 host 0c78.86e2.33aa
+ permit host 0faa.1d81.7e4d host 05e4.5b39.0db7
+ permit host 3301.c820.dd45 host 1398.db9a.5e03
+ permit host 25d4.0c1f.174d host 298b.9df0.d8ce
+ permit host 396d.704e.8e15 host 2c36.357a.0056
+ permit host 316e.4023.dd5a host 0d3c.2482.8637
+ deny   host 0a6a.efa3.1681 host 165a.41ee.c376
+ deny   host 3a23.a651.8a1a host 22ce.c836.c7e1
+ deny   host 0bb8.2aa0.b4ac host 2daa.effe.1044
+ deny   host 0eb6.a048.5b3d host 2389.c196.6b95
+ deny   host 0191.9205.7b47 host 337a.1e60.ee37
+ permit host 0000.0000.0000 host 0000.0000.0000
+!
+spanning-tree mode mst
+spanning-tree mst 0 priority 61440
+sdm prefer default 
+no diagnostic bootup level
+!
+username cisco privilege 15 password 7 1511021F0725
+username ais privilege 15 password 7 06160022151C593936342659
+!
+redundancy
+!
+!
+!
+bridge-domain 3001 
+ no ip igmp snooping
+bridge-domain 3002 
+ no ip igmp snooping
+bridge-domain 3003 
+ no ip igmp snooping
+bridge-domain 3004 
+ no ip igmp snooping
+bridge-domain 3005 
+ no ip igmp snooping
+bridge-domain 3006 
+ no ip igmp snooping
+bridge-domain 3007 
+ no ip igmp snooping
+bridge-domain 3008 
+ no ip igmp snooping
+bridge-domain 3009 
+ no ip igmp snooping
+bridge-domain 3010 
+ no ip igmp snooping
+!
+!
+transceiver type all
+ monitoring
+cdp run
+!
+ip telnet tos 80
+!
+!
+class-map match-all af41
+ match dscp af41 
+class-map match-all ef
+ match dscp ef 
+class-map match-all af32
+ match dscp af32 
+class-map match-all af22
+ match dscp af22 
+class-map match-all be
+ match dscp default 
+class-map match-all af11
+ match dscp af11 
+class-map match-any CM-GROUP4
+ match qos-group 4
+class-map match-any CM-GROUP5
+ match qos-group 5
+class-map match-all cos5
+ match cos  5 
+class-map match-any CM-GROUP6
+ match qos-group 6
+ match dscp cs6  cs7 
+class-map match-all cos4
+ match cos  4 
+class-map match-all cos3
+ match cos  3 
+class-map match-all cos2
+ match cos  2 
+class-map match-any CM-GROUP1
+ match qos-group 1
+class-map match-all cos1
+ match cos  1 
+class-map match-any CM-GROUP2
+ match qos-group 2
+class-map match-all cos0
+ match cos  0 
+class-map match-any CM-GROUP3
+ match qos-group 3
+class-map match-all qos5
+ match qos-group 5
+class-map match-any qos4
+ match qos-group 4
+ match dscp cs4 
+class-map match-all qos1
+ match qos-group 1
+class-map match-all qos3
+ match qos-group 3
+class-map match-all qos2
+ match qos-group 2
+!
+policy-map NPM-INGRESS-NNI
+ class cos5
+  set qos-group 5
+ class cos3
+  set qos-group 3
+ class cos1
+  set qos-group 1
+ class cos4
+  set qos-group 4
+ class cos2
+  set qos-group 2
+ class cos0
+  set qos-group 0
+policy-map BG_MARKING
+ class af41
+  set dscp default
+  set qos-group 0
+  set cos 0
+policy-map PM-EGRESS-NNI
+ class CM-GROUP6
+  bandwidth remaining percent 5 
+ class CM-GROUP5
+  priority percent 25
+ class CM-GROUP4
+  bandwidth remaining percent 5 
+ class CM-GROUP3
+  bandwidth remaining percent 10 
+ class CM-GROUP2
+  bandwidth remaining percent 40 
+ class CM-GROUP1
+  bandwidth remaining percent 10 
+ class class-default
+  bandwidth remaining percent 5 
+policy-map NMS_MARKING
+ class class-default
+  set qos-group 4
+  set dscp cs4
+  set cos 4
+policy-map TDM_MARKING
+ class class-default
+  set qos-group 2
+  set cos 2
+policy-map PM-INGRESS-NETCONTROL-COS
+ class class-default
+  set qos-group 6
+  set cos 6
+policy-map NPM-EGRESS-NNI
+ class qos5
+  set dscp ef
+  set cos 5
+  bandwidth remaining percent 30 
+ class qos3
+  bandwidth remaining percent 30 
+  set dscp af32
+  set cos 3
+ class qos2
+  priority level 1
+  set cos 2
+ class qos1
+  bandwidth remaining percent 30 
+  set dscp af11
+  set cos 1
+ class qos4
+  priority level 2
+  set dscp cs4
+  set cos 4
+ class class-default
+  set dscp default
+  set cos 0
+  queue-limit 10 us
+policy-map PM-INGRESS-NNI-TDM
+ class class-default
+  set qos-group 5
+  set cos 5
+policy-map SERVICES_MARKING
+ class af41
+  set qos-group 5
+  set dscp ef
+  set cos 4
+ class af22
+  set qos-group 3
+  set dscp af32
+  set cos 3
+ class be
+  set dscp af11
+  set qos-group 1
+  set cos 1
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ description <description/Remark>
+ mtu 9000
+ no ip address
+ logging event link-status
+ load-interval 30
+ carrier-delay msec 0
+ negotiation auto
+ service instance 100 ethernet
+  encapsulation dot1q 100
+  rewrite ingress tag pop 1 symmetric
+  service-policy input PM-INGRESS-NETCONTROL-COS
+  bridge-domain 100
+ !
+ service instance 151 ethernet
+  description TDM-E1_WT
+  encapsulation dot1q 151
+  rewrite ingress tag pop 1 symmetric
+  service-policy input PM-INGRESS-NNI-TDM
+  bridge-domain 151
+ !
+ service instance 152 ethernet
+  description TDM-E1_PT
+  encapsulation dot1q 152
+  rewrite ingress tag pop 1 symmetric
+  service-policy input PM-INGRESS-NNI-TDM
+  bridge-domain 152
+ !
+!
+interface GigabitEthernet0/0/0
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/1
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/2
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/3
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/4
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/5
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/6
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/7
+ description LOOPTEST
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type rj45
+ negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/8
+ description To-Tester(loop)
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type sfp
+ no negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/9
+ description To-Tester(loop)
+ mtu 9216
+ no ip address
+ load-interval 30
+ media-type sfp
+ no negotiation auto
+ no keepalive
+ cdp enable
+ service instance 999 ethernet
+  encapsulation default
+ !
+!
+interface GigabitEthernet0/0/10
+ description to Calnex-port2
+ no ip address
+ media-type sfp
+ negotiation auto
+ synchronous mode
+ cdp enable
+!
+interface GigabitEthernet0/0/11
+ description <description/Remark>
+ mtu 9000
+ no ip address
+ logging event link-status
+ load-interval 30
+ media-type sfp
+ negotiation auto
+ synchronous mode
+ cdp enable
+ ethernet oam link-monitor frame window 600
+ ethernet oam link-monitor frame threshold low 2
+ ethernet oam link-monitor receive-crc window 600
+ ethernet oam link-monitor receive-crc threshold low 2
+ ethernet oam
+ service-policy output PM-EGRESS-NNI
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet0/0/12
+ description To-asr920-9(Ten 0/0/13)
+ mtu 9216
+ no ip address
+ logging event link-status
+ load-interval 30
+ carrier-delay msec 0
+ rep segment 101 preferred
+ synchronous mode
+ cdp enable
+ ethernet cfm mep domain 101 mpid 20 service rep
+   alarm notification all
+   continuity-check static rmep
+   rmep mpid 19
+ service-policy input NPM-INGRESS-NNI
+ service-policy output NPM-EGRESS-NNI
+ service instance 1 ethernet
+  encapsulation untagged
+  l2protocol peer cdp loam esmc ptppd
+  bridge-domain 1
+ !
+ service instance trunk 10 ethernet
+  encapsulation dot1q 10,81,100-600,1101-1210,3001-3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain from-encapsulation
+ !
+!
+interface TenGigabitEthernet0/0/13
+ description To-AGG2_UPE2(TenGigE0/7/0/2)
+ mtu 9216
+ no ip address
+ logging event link-status
+ load-interval 30
+ carrier-delay msec 0
+ rep segment 101 edge no-neighbor primary
+ rep stcn stp
+ rep preempt delay 300
+ synchronous mode
+ cdp enable
+ ethernet cfm mep domain 101 mpid 21 service rep
+   alarm notification all
+   continuity-check static rmep
+   rmep mpid 22
+ service-policy input NPM-INGRESS-NNI
+ service-policy output NPM-EGRESS-NNI
+ service instance 1 ethernet
+  encapsulation untagged
+  l2protocol peer cdp stp loam esmc ptppd
+  bridge-domain 2
+ !
+ service instance trunk 10 ethernet
+  encapsulation dot1q 10,81,100-600,1101-1210,3001-3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain from-encapsulation
+ !
+!
+interface TenGigabitEthernet0/0/14
+ description To-Tester(2/5)
+ mtu 9216
+ no ip address
+ load-interval 30
+ mac access-group MAC_ACL in
+ mac access-group MAC_ACL out
+ cdp enable
+ spanning-tree portfast trunk
+ service-policy input SERVICES_MARKING
+ service instance 101 ethernet
+  encapsulation dot1q 101
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 101
+ !
+ service instance 1101 ethernet
+  encapsulation dot1q 1101
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1101
+ !
+ service instance 1102 ethernet
+  encapsulation dot1q 1102
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1102
+ !
+ service instance 1201 ethernet
+  encapsulation dot1q 1201
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1201
+ !
+ service instance 3001 ethernet
+  encapsulation dot1q 3001
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3001
+ !
+ service instance 3002 ethernet
+  encapsulation dot1q 3002
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3002
+ !
+ service instance 3003 ethernet
+  encapsulation dot1q 3003
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3003
+ !
+ service instance 3004 ethernet
+  encapsulation dot1q 3004
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3004
+ !
+ service instance 3005 ethernet
+  encapsulation dot1q 3005
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3005
+ !
+ service instance 3006 ethernet
+  encapsulation dot1q 3006
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3006
+ !
+ service instance 3007 ethernet
+  encapsulation dot1q 3007
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3007
+ !
+ service instance 3008 ethernet
+  encapsulation dot1q 3008
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3008
+ !
+ service instance 3009 ethernet
+  encapsulation dot1q 3009
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3009
+ !
+ service instance 3010 ethernet
+  encapsulation dot1q 3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3010
+ !
+!
+interface TenGigabitEthernet0/0/15
+ description To-Tester(2/6)
+ mtu 9216
+ no ip address
+ load-interval 30
+ mac access-group MAC_ACL in
+ mac access-group MAC_ACL out
+ cdp enable
+ service-policy input BG_MARKING
+ service instance 102 ethernet
+  encapsulation dot1q 102
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 102
+ !
+ service instance 103 ethernet
+  encapsulation dot1q 103
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 103
+ !
+ service instance 104 ethernet
+  encapsulation dot1q 104
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 104
+ !
+ service instance 105 ethernet
+  encapsulation dot1q 105
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 105
+ !
+ service instance 106 ethernet
+  encapsulation dot1q 106
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 106
+ !
+ service instance 107 ethernet
+  encapsulation dot1q 107
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 107
+ !
+ service instance 108 ethernet
+  encapsulation dot1q 108
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 108
+ !
+ service instance 109 ethernet
+  encapsulation dot1q 109
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 109
+ !
+ service instance 110 ethernet
+  encapsulation dot1q 110
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 110
+ !
+ service instance 111 ethernet
+  encapsulation dot1q 111
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 111
+ !
+ service instance 112 ethernet
+  encapsulation dot1q 112
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 112
+ !
+ service instance 113 ethernet
+  encapsulation dot1q 113
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 113
+ !
+ service instance 114 ethernet
+  encapsulation dot1q 114
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 114
+ !
+ service instance 115 ethernet
+  encapsulation dot1q 115
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 115
+ !
+ service instance 116 ethernet
+  encapsulation dot1q 116
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 116
+ !
+ service instance 117 ethernet
+  encapsulation dot1q 117
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 117
+ !
+ service instance 118 ethernet
+  encapsulation dot1q 118
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 118
+ !
+ service instance 119 ethernet
+  encapsulation dot1q 119
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 119
+ !
+ service instance 120 ethernet
+  encapsulation dot1q 120
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 120
+ !
+ service instance 121 ethernet
+  encapsulation dot1q 121
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 121
+ !
+ service instance 122 ethernet
+  encapsulation dot1q 122
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 122
+ !
+ service instance 123 ethernet
+  encapsulation dot1q 123
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 123
+ !
+ service instance 124 ethernet
+  encapsulation dot1q 124
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 124
+ !
+ service instance 125 ethernet
+  encapsulation dot1q 125
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 125
+ !
+ service instance 126 ethernet
+  encapsulation dot1q 126
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 126
+ !
+ service instance 127 ethernet
+  encapsulation dot1q 127
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 127
+ !
+ service instance 128 ethernet
+  encapsulation dot1q 128
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 128
+ !
+ service instance 129 ethernet
+  encapsulation dot1q 129
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 129
+ !
+ service instance 130 ethernet
+  encapsulation dot1q 130
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 130
+ !
+ service instance 131 ethernet
+  encapsulation dot1q 131
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 131
+ !
+ service instance 132 ethernet
+  encapsulation dot1q 132
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 132
+ !
+ service instance 133 ethernet
+  encapsulation dot1q 133
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 133
+ !
+ service instance 134 ethernet
+  encapsulation dot1q 134
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 134
+ !
+ service instance 135 ethernet
+  encapsulation dot1q 135
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 135
+ !
+ service instance 136 ethernet
+  encapsulation dot1q 136
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 136
+ !
+ service instance 137 ethernet
+  encapsulation dot1q 137
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 137
+ !
+ service instance 138 ethernet
+  encapsulation dot1q 138
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 138
+ !
+ service instance 139 ethernet
+  encapsulation dot1q 139
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 139
+ !
+ service instance 140 ethernet
+  encapsulation dot1q 140
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 140
+ !
+ service instance 141 ethernet
+  encapsulation dot1q 141
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 141
+ !
+ service instance 142 ethernet
+  encapsulation dot1q 142
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 142
+ !
+ service instance 143 ethernet
+  encapsulation dot1q 143
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 143
+ !
+ service instance 144 ethernet
+  encapsulation dot1q 144
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 144
+ !
+ service instance 145 ethernet
+  encapsulation dot1q 145
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 145
+ !
+ service instance 146 ethernet
+  encapsulation dot1q 146
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 146
+ !
+ service instance 147 ethernet
+  encapsulation dot1q 147
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 147
+ !
+ service instance 148 ethernet
+  encapsulation dot1q 148
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 148
+ !
+ service instance 149 ethernet
+  encapsulation dot1q 149
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 149
+ !
+ service instance 150 ethernet
+  encapsulation dot1q 150
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 150
+ !
+ service instance 153 ethernet
+  encapsulation dot1q 153
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 153
+ !
+ service instance 154 ethernet
+  encapsulation dot1q 154
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 154
+ !
+ service instance 155 ethernet
+  encapsulation dot1q 155
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 155
+ !
+ service instance 156 ethernet
+  encapsulation dot1q 156
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 156
+ !
+ service instance 157 ethernet
+  encapsulation dot1q 157
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 157
+ !
+ service instance 158 ethernet
+  encapsulation dot1q 158
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 158
+ !
+ service instance 159 ethernet
+  encapsulation dot1q 159
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 159
+ !
+ service instance 160 ethernet
+  encapsulation dot1q 160
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 160
+ !
+ service instance 161 ethernet
+  encapsulation dot1q 161
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 161
+ !
+ service instance 162 ethernet
+  encapsulation dot1q 162
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 162
+ !
+ service instance 163 ethernet
+  encapsulation dot1q 163
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 163
+ !
+ service instance 164 ethernet
+  encapsulation dot1q 164
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 164
+ !
+ service instance 165 ethernet
+  encapsulation dot1q 165
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 165
+ !
+ service instance 166 ethernet
+  encapsulation dot1q 166
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 166
+ !
+ service instance 167 ethernet
+  encapsulation dot1q 167
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 167
+ !
+ service instance 168 ethernet
+  encapsulation dot1q 168
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 168
+ !
+ service instance 169 ethernet
+  encapsulation dot1q 169
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 169
+ !
+ service instance 170 ethernet
+  encapsulation dot1q 170
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 170
+ !
+ service instance 171 ethernet
+  encapsulation dot1q 171
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 171
+ !
+ service instance 172 ethernet
+  encapsulation dot1q 172
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 172
+ !
+ service instance 173 ethernet
+  encapsulation dot1q 173
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 173
+ !
+ service instance 174 ethernet
+  encapsulation dot1q 174
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 174
+ !
+ service instance 175 ethernet
+  encapsulation dot1q 175
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 175
+ !
+ service instance 176 ethernet
+  encapsulation dot1q 176
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 176
+ !
+ service instance 177 ethernet
+  encapsulation dot1q 177
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 177
+ !
+ service instance 178 ethernet
+  encapsulation dot1q 178
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 178
+ !
+ service instance 179 ethernet
+  encapsulation dot1q 179
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 179
+ !
+ service instance 180 ethernet
+  encapsulation dot1q 180
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 180
+ !
+ service instance 181 ethernet
+  encapsulation dot1q 181
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 181
+ !
+ service instance 182 ethernet
+  encapsulation dot1q 182
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 182
+ !
+ service instance 183 ethernet
+  encapsulation dot1q 183
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 183
+ !
+ service instance 184 ethernet
+  encapsulation dot1q 184
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 184
+ !
+ service instance 185 ethernet
+  encapsulation dot1q 185
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 185
+ !
+ service instance 186 ethernet
+  encapsulation dot1q 186
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 186
+ !
+ service instance 187 ethernet
+  encapsulation dot1q 187
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 187
+ !
+ service instance 188 ethernet
+  encapsulation dot1q 188
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 188
+ !
+ service instance 189 ethernet
+  encapsulation dot1q 189
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 189
+ !
+ service instance 190 ethernet
+  encapsulation dot1q 190
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 190
+ !
+ service instance 191 ethernet
+  encapsulation dot1q 191
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 191
+ !
+ service instance 192 ethernet
+  encapsulation dot1q 192
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 192
+ !
+ service instance 193 ethernet
+  encapsulation dot1q 193
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 193
+ !
+ service instance 194 ethernet
+  encapsulation dot1q 194
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 194
+ !
+ service instance 195 ethernet
+  encapsulation dot1q 195
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 195
+ !
+ service instance 196 ethernet
+  encapsulation dot1q 196
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 196
+ !
+ service instance 197 ethernet
+  encapsulation dot1q 197
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 197
+ !
+ service instance 198 ethernet
+  encapsulation dot1q 198
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 198
+ !
+ service instance 199 ethernet
+  encapsulation dot1q 199
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 199
+ !
+ service instance 200 ethernet
+  encapsulation dot1q 200
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 200
+ !
+ service instance 201 ethernet
+  encapsulation dot1q 201
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 201
+ !
+ service instance 202 ethernet
+  encapsulation dot1q 202
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 202
+ !
+ service instance 203 ethernet
+  encapsulation dot1q 203
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 203
+ !
+ service instance 204 ethernet
+  encapsulation dot1q 204
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 204
+ !
+ service instance 205 ethernet
+  encapsulation dot1q 205
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 205
+ !
+ service instance 206 ethernet
+  encapsulation dot1q 206
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 206
+ !
+ service instance 207 ethernet
+  encapsulation dot1q 207
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 207
+ !
+ service instance 208 ethernet
+  encapsulation dot1q 208
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 208
+ !
+ service instance 209 ethernet
+  encapsulation dot1q 209
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 209
+ !
+ service instance 210 ethernet
+  encapsulation dot1q 210
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 210
+ !
+ service instance 211 ethernet
+  encapsulation dot1q 211
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 211
+ !
+ service instance 212 ethernet
+  encapsulation dot1q 212
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 212
+ !
+ service instance 213 ethernet
+  encapsulation dot1q 213
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 213
+ !
+ service instance 214 ethernet
+  encapsulation dot1q 214
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 214
+ !
+ service instance 215 ethernet
+  encapsulation dot1q 215
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 215
+ !
+ service instance 216 ethernet
+  encapsulation dot1q 216
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 216
+ !
+ service instance 217 ethernet
+  encapsulation dot1q 217
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 217
+ !
+ service instance 218 ethernet
+  encapsulation dot1q 218
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 218
+ !
+ service instance 219 ethernet
+  encapsulation dot1q 219
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 219
+ !
+ service instance 220 ethernet
+  encapsulation dot1q 220
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 220
+ !
+ service instance 221 ethernet
+  encapsulation dot1q 221
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 221
+ !
+ service instance 222 ethernet
+  encapsulation dot1q 222
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 222
+ !
+ service instance 223 ethernet
+  encapsulation dot1q 223
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 223
+ !
+ service instance 224 ethernet
+  encapsulation dot1q 224
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 224
+ !
+ service instance 225 ethernet
+  encapsulation dot1q 225
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 225
+ !
+ service instance 226 ethernet
+  encapsulation dot1q 226
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 226
+ !
+ service instance 227 ethernet
+  encapsulation dot1q 227
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 227
+ !
+ service instance 228 ethernet
+  encapsulation dot1q 228
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 228
+ !
+ service instance 229 ethernet
+  encapsulation dot1q 229
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 229
+ !
+ service instance 230 ethernet
+  encapsulation dot1q 230
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 230
+ !
+ service instance 231 ethernet
+  encapsulation dot1q 231
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 231
+ !
+ service instance 232 ethernet
+  encapsulation dot1q 232
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 232
+ !
+ service instance 233 ethernet
+  encapsulation dot1q 233
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 233
+ !
+ service instance 234 ethernet
+  encapsulation dot1q 234
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 234
+ !
+ service instance 235 ethernet
+  encapsulation dot1q 235
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 235
+ !
+ service instance 236 ethernet
+  encapsulation dot1q 236
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 236
+ !
+ service instance 237 ethernet
+  encapsulation dot1q 237
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 237
+ !
+ service instance 238 ethernet
+  encapsulation dot1q 238
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 238
+ !
+ service instance 239 ethernet
+  encapsulation dot1q 239
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 239
+ !
+ service instance 240 ethernet
+  encapsulation dot1q 240
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 240
+ !
+ service instance 241 ethernet
+  encapsulation dot1q 241
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 241
+ !
+ service instance 242 ethernet
+  encapsulation dot1q 242
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 242
+ !
+ service instance 243 ethernet
+  encapsulation dot1q 243
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 243
+ !
+ service instance 244 ethernet
+  encapsulation dot1q 244
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 244
+ !
+ service instance 245 ethernet
+  encapsulation dot1q 245
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 245
+ !
+ service instance 246 ethernet
+  encapsulation dot1q 246
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 246
+ !
+ service instance 247 ethernet
+  encapsulation dot1q 247
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 247
+ !
+ service instance 248 ethernet
+  encapsulation dot1q 248
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 248
+ !
+ service instance 249 ethernet
+  encapsulation dot1q 249
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 249
+ !
+ service instance 250 ethernet
+  encapsulation dot1q 250
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 250
+ !
+ service instance 251 ethernet
+  encapsulation dot1q 251
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 251
+ !
+ service instance 252 ethernet
+  encapsulation dot1q 252
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 252
+ !
+ service instance 253 ethernet
+  encapsulation dot1q 253
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 253
+ !
+ service instance 254 ethernet
+  encapsulation dot1q 254
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 254
+ !
+ service instance 255 ethernet
+  encapsulation dot1q 255
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 255
+ !
+ service instance 256 ethernet
+  encapsulation dot1q 256
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 256
+ !
+ service instance 257 ethernet
+  encapsulation dot1q 257
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 257
+ !
+ service instance 258 ethernet
+  encapsulation dot1q 258
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 258
+ !
+ service instance 259 ethernet
+  encapsulation dot1q 259
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 259
+ !
+ service instance 260 ethernet
+  encapsulation dot1q 260
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 260
+ !
+ service instance 261 ethernet
+  encapsulation dot1q 261
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 261
+ !
+ service instance 262 ethernet
+  encapsulation dot1q 262
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 262
+ !
+ service instance 263 ethernet
+  encapsulation dot1q 263
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 263
+ !
+ service instance 264 ethernet
+  encapsulation dot1q 264
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 264
+ !
+ service instance 265 ethernet
+  encapsulation dot1q 265
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 265
+ !
+ service instance 266 ethernet
+  encapsulation dot1q 266
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 266
+ !
+ service instance 267 ethernet
+  encapsulation dot1q 267
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 267
+ !
+ service instance 268 ethernet
+  encapsulation dot1q 268
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 268
+ !
+ service instance 269 ethernet
+  encapsulation dot1q 269
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 269
+ !
+ service instance 270 ethernet
+  encapsulation dot1q 270
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 270
+ !
+ service instance 271 ethernet
+  encapsulation dot1q 271
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 271
+ !
+ service instance 272 ethernet
+  encapsulation dot1q 272
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 272
+ !
+ service instance 273 ethernet
+  encapsulation dot1q 273
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 273
+ !
+ service instance 274 ethernet
+  encapsulation dot1q 274
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 274
+ !
+ service instance 275 ethernet
+  encapsulation dot1q 275
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 275
+ !
+ service instance 276 ethernet
+  encapsulation dot1q 276
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 276
+ !
+ service instance 277 ethernet
+  encapsulation dot1q 277
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 277
+ !
+ service instance 278 ethernet
+  encapsulation dot1q 278
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 278
+ !
+ service instance 279 ethernet
+  encapsulation dot1q 279
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 279
+ !
+ service instance 280 ethernet
+  encapsulation dot1q 280
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 280
+ !
+ service instance 281 ethernet
+  encapsulation dot1q 281
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 281
+ !
+ service instance 282 ethernet
+  encapsulation dot1q 282
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 282
+ !
+ service instance 283 ethernet
+  encapsulation dot1q 283
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 283
+ !
+ service instance 284 ethernet
+  encapsulation dot1q 284
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 284
+ !
+ service instance 285 ethernet
+  encapsulation dot1q 285
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 285
+ !
+ service instance 286 ethernet
+  encapsulation dot1q 286
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 286
+ !
+ service instance 287 ethernet
+  encapsulation dot1q 287
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 287
+ !
+ service instance 288 ethernet
+  encapsulation dot1q 288
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 288
+ !
+ service instance 289 ethernet
+  encapsulation dot1q 289
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 289
+ !
+ service instance 290 ethernet
+  encapsulation dot1q 290
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 290
+ !
+ service instance 291 ethernet
+  encapsulation dot1q 291
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 291
+ !
+ service instance 292 ethernet
+  encapsulation dot1q 292
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 292
+ !
+ service instance 293 ethernet
+  encapsulation dot1q 293
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 293
+ !
+ service instance 294 ethernet
+  encapsulation dot1q 294
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 294
+ !
+ service instance 295 ethernet
+  encapsulation dot1q 295
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 295
+ !
+ service instance 296 ethernet
+  encapsulation dot1q 296
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 296
+ !
+ service instance 297 ethernet
+  encapsulation dot1q 297
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 297
+ !
+ service instance 298 ethernet
+  encapsulation dot1q 298
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 298
+ !
+ service instance 299 ethernet
+  encapsulation dot1q 299
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 299
+ !
+ service instance 300 ethernet
+  encapsulation dot1q 300
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 300
+ !
+ service instance 301 ethernet
+  encapsulation dot1q 301
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 301
+ !
+ service instance 302 ethernet
+  encapsulation dot1q 302
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 302
+ !
+ service instance 303 ethernet
+  encapsulation dot1q 303
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 303
+ !
+ service instance 304 ethernet
+  encapsulation dot1q 304
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 304
+ !
+ service instance 305 ethernet
+  encapsulation dot1q 305
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 305
+ !
+ service instance 306 ethernet
+  encapsulation dot1q 306
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 306
+ !
+ service instance 307 ethernet
+  encapsulation dot1q 307
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 307
+ !
+ service instance 308 ethernet
+  encapsulation dot1q 308
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 308
+ !
+ service instance 309 ethernet
+  encapsulation dot1q 309
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 309
+ !
+ service instance 310 ethernet
+  encapsulation dot1q 310
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 310
+ !
+ service instance 311 ethernet
+  encapsulation dot1q 311
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 311
+ !
+ service instance 312 ethernet
+  encapsulation dot1q 312
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 312
+ !
+ service instance 313 ethernet
+  encapsulation dot1q 313
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 313
+ !
+ service instance 314 ethernet
+  encapsulation dot1q 314
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 314
+ !
+ service instance 315 ethernet
+  encapsulation dot1q 315
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 315
+ !
+ service instance 316 ethernet
+  encapsulation dot1q 316
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 316
+ !
+ service instance 317 ethernet
+  encapsulation dot1q 317
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 317
+ !
+ service instance 318 ethernet
+  encapsulation dot1q 318
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 318
+ !
+ service instance 319 ethernet
+  encapsulation dot1q 319
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 319
+ !
+ service instance 320 ethernet
+  encapsulation dot1q 320
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 320
+ !
+ service instance 321 ethernet
+  encapsulation dot1q 321
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 321
+ !
+ service instance 322 ethernet
+  encapsulation dot1q 322
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 322
+ !
+ service instance 323 ethernet
+  encapsulation dot1q 323
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 323
+ !
+ service instance 324 ethernet
+  encapsulation dot1q 324
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 324
+ !
+ service instance 325 ethernet
+  encapsulation dot1q 325
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 325
+ !
+ service instance 326 ethernet
+  encapsulation dot1q 326
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 326
+ !
+ service instance 327 ethernet
+  encapsulation dot1q 327
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 327
+ !
+ service instance 328 ethernet
+  encapsulation dot1q 328
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 328
+ !
+ service instance 329 ethernet
+  encapsulation dot1q 329
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 329
+ !
+ service instance 330 ethernet
+  encapsulation dot1q 330
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 330
+ !
+ service instance 331 ethernet
+  encapsulation dot1q 331
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 331
+ !
+ service instance 332 ethernet
+  encapsulation dot1q 332
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 332
+ !
+ service instance 333 ethernet
+  encapsulation dot1q 333
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 333
+ !
+ service instance 334 ethernet
+  encapsulation dot1q 334
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 334
+ !
+ service instance 335 ethernet
+  encapsulation dot1q 335
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 335
+ !
+ service instance 336 ethernet
+  encapsulation dot1q 336
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 336
+ !
+ service instance 337 ethernet
+  encapsulation dot1q 337
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 337
+ !
+ service instance 338 ethernet
+  encapsulation dot1q 338
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 338
+ !
+ service instance 339 ethernet
+  encapsulation dot1q 339
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 339
+ !
+ service instance 340 ethernet
+  encapsulation dot1q 340
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 340
+ !
+ service instance 341 ethernet
+  encapsulation dot1q 341
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 341
+ !
+ service instance 342 ethernet
+  encapsulation dot1q 342
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 342
+ !
+ service instance 343 ethernet
+  encapsulation dot1q 343
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 343
+ !
+ service instance 344 ethernet
+  encapsulation dot1q 344
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 344
+ !
+ service instance 345 ethernet
+  encapsulation dot1q 345
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 345
+ !
+ service instance 346 ethernet
+  encapsulation dot1q 346
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 346
+ !
+ service instance 347 ethernet
+  encapsulation dot1q 347
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 347
+ !
+ service instance 348 ethernet
+  encapsulation dot1q 348
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 348
+ !
+ service instance 349 ethernet
+  encapsulation dot1q 349
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 349
+ !
+ service instance 350 ethernet
+  encapsulation dot1q 350
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 350
+ !
+ service instance 351 ethernet
+  encapsulation dot1q 351
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 351
+ !
+ service instance 352 ethernet
+  encapsulation dot1q 352
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 352
+ !
+ service instance 353 ethernet
+  encapsulation dot1q 353
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 353
+ !
+ service instance 354 ethernet
+  encapsulation dot1q 354
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 354
+ !
+ service instance 355 ethernet
+  encapsulation dot1q 355
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 355
+ !
+ service instance 356 ethernet
+  encapsulation dot1q 356
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 356
+ !
+ service instance 357 ethernet
+  encapsulation dot1q 357
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 357
+ !
+ service instance 358 ethernet
+  encapsulation dot1q 358
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 358
+ !
+ service instance 359 ethernet
+  encapsulation dot1q 359
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 359
+ !
+ service instance 360 ethernet
+  encapsulation dot1q 360
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 360
+ !
+ service instance 361 ethernet
+  encapsulation dot1q 361
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 361
+ !
+ service instance 362 ethernet
+  encapsulation dot1q 362
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 362
+ !
+ service instance 363 ethernet
+  encapsulation dot1q 363
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 363
+ !
+ service instance 364 ethernet
+  encapsulation dot1q 364
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 364
+ !
+ service instance 365 ethernet
+  encapsulation dot1q 365
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 365
+ !
+ service instance 366 ethernet
+  encapsulation dot1q 366
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 366
+ !
+ service instance 367 ethernet
+  encapsulation dot1q 367
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 367
+ !
+ service instance 368 ethernet
+  encapsulation dot1q 368
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 368
+ !
+ service instance 369 ethernet
+  encapsulation dot1q 369
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 369
+ !
+ service instance 370 ethernet
+  encapsulation dot1q 370
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 370
+ !
+ service instance 371 ethernet
+  encapsulation dot1q 371
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 371
+ !
+ service instance 372 ethernet
+  encapsulation dot1q 372
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 372
+ !
+ service instance 373 ethernet
+  encapsulation dot1q 373
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 373
+ !
+ service instance 374 ethernet
+  encapsulation dot1q 374
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 374
+ !
+ service instance 375 ethernet
+  encapsulation dot1q 375
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 375
+ !
+ service instance 376 ethernet
+  encapsulation dot1q 376
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 376
+ !
+ service instance 377 ethernet
+  encapsulation dot1q 377
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 377
+ !
+ service instance 378 ethernet
+  encapsulation dot1q 378
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 378
+ !
+ service instance 379 ethernet
+  encapsulation dot1q 379
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 379
+ !
+ service instance 380 ethernet
+  encapsulation dot1q 380
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 380
+ !
+ service instance 381 ethernet
+  encapsulation dot1q 381
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 381
+ !
+ service instance 382 ethernet
+  encapsulation dot1q 382
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 382
+ !
+ service instance 383 ethernet
+  encapsulation dot1q 383
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 383
+ !
+ service instance 384 ethernet
+  encapsulation dot1q 384
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 384
+ !
+ service instance 385 ethernet
+  encapsulation dot1q 385
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 385
+ !
+ service instance 386 ethernet
+  encapsulation dot1q 386
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 386
+ !
+ service instance 387 ethernet
+  encapsulation dot1q 387
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 387
+ !
+ service instance 388 ethernet
+  encapsulation dot1q 388
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 388
+ !
+ service instance 389 ethernet
+  encapsulation dot1q 389
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 389
+ !
+ service instance 390 ethernet
+  encapsulation dot1q 390
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 390
+ !
+ service instance 391 ethernet
+  encapsulation dot1q 391
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 391
+ !
+ service instance 392 ethernet
+  encapsulation dot1q 392
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 392
+ !
+ service instance 393 ethernet
+  encapsulation dot1q 393
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 393
+ !
+ service instance 394 ethernet
+  encapsulation dot1q 394
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 394
+ !
+ service instance 395 ethernet
+  encapsulation dot1q 395
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 395
+ !
+ service instance 396 ethernet
+  encapsulation dot1q 396
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 396
+ !
+ service instance 397 ethernet
+  encapsulation dot1q 397
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 397
+ !
+ service instance 398 ethernet
+  encapsulation dot1q 398
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 398
+ !
+ service instance 399 ethernet
+  encapsulation dot1q 399
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 399
+ !
+ service instance 400 ethernet
+  encapsulation dot1q 400
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 400
+ !
+ service instance 401 ethernet
+  encapsulation dot1q 401
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 401
+ !
+ service instance 402 ethernet
+  encapsulation dot1q 402
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 402
+ !
+ service instance 403 ethernet
+  encapsulation dot1q 403
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 403
+ !
+ service instance 404 ethernet
+  encapsulation dot1q 404
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 404
+ !
+ service instance 405 ethernet
+  encapsulation dot1q 405
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 405
+ !
+ service instance 406 ethernet
+  encapsulation dot1q 406
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 406
+ !
+ service instance 407 ethernet
+  encapsulation dot1q 407
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 407
+ !
+ service instance 408 ethernet
+  encapsulation dot1q 408
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 408
+ !
+ service instance 409 ethernet
+  encapsulation dot1q 409
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 409
+ !
+ service instance 410 ethernet
+  encapsulation dot1q 410
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 410
+ !
+ service instance 411 ethernet
+  encapsulation dot1q 411
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 411
+ !
+ service instance 412 ethernet
+  encapsulation dot1q 412
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 412
+ !
+ service instance 413 ethernet
+  encapsulation dot1q 413
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 413
+ !
+ service instance 414 ethernet
+  encapsulation dot1q 414
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 414
+ !
+ service instance 415 ethernet
+  encapsulation dot1q 415
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 415
+ !
+ service instance 416 ethernet
+  encapsulation dot1q 416
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 416
+ !
+ service instance 417 ethernet
+  encapsulation dot1q 417
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 417
+ !
+ service instance 418 ethernet
+  encapsulation dot1q 418
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 418
+ !
+ service instance 419 ethernet
+  encapsulation dot1q 419
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 419
+ !
+ service instance 420 ethernet
+  encapsulation dot1q 420
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 420
+ !
+ service instance 421 ethernet
+  encapsulation dot1q 421
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 421
+ !
+ service instance 422 ethernet
+  encapsulation dot1q 422
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 422
+ !
+ service instance 423 ethernet
+  encapsulation dot1q 423
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 423
+ !
+ service instance 424 ethernet
+  encapsulation dot1q 424
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 424
+ !
+ service instance 425 ethernet
+  encapsulation dot1q 425
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 425
+ !
+ service instance 426 ethernet
+  encapsulation dot1q 426
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 426
+ !
+ service instance 427 ethernet
+  encapsulation dot1q 427
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 427
+ !
+ service instance 428 ethernet
+  encapsulation dot1q 428
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 428
+ !
+ service instance 429 ethernet
+  encapsulation dot1q 429
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 429
+ !
+ service instance 430 ethernet
+  encapsulation dot1q 430
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 430
+ !
+ service instance 431 ethernet
+  encapsulation dot1q 431
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 431
+ !
+ service instance 432 ethernet
+  encapsulation dot1q 432
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 432
+ !
+ service instance 433 ethernet
+  encapsulation dot1q 433
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 433
+ !
+ service instance 434 ethernet
+  encapsulation dot1q 434
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 434
+ !
+ service instance 435 ethernet
+  encapsulation dot1q 435
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 435
+ !
+ service instance 436 ethernet
+  encapsulation dot1q 436
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 436
+ !
+ service instance 437 ethernet
+  encapsulation dot1q 437
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 437
+ !
+ service instance 438 ethernet
+  encapsulation dot1q 438
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 438
+ !
+ service instance 439 ethernet
+  encapsulation dot1q 439
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 439
+ !
+ service instance 440 ethernet
+  encapsulation dot1q 440
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 440
+ !
+ service instance 441 ethernet
+  encapsulation dot1q 441
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 441
+ !
+ service instance 442 ethernet
+  encapsulation dot1q 442
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 442
+ !
+ service instance 443 ethernet
+  encapsulation dot1q 443
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 443
+ !
+ service instance 444 ethernet
+  encapsulation dot1q 444
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 444
+ !
+ service instance 445 ethernet
+  encapsulation dot1q 445
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 445
+ !
+ service instance 446 ethernet
+  encapsulation dot1q 446
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 446
+ !
+ service instance 447 ethernet
+  encapsulation dot1q 447
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 447
+ !
+ service instance 448 ethernet
+  encapsulation dot1q 448
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 448
+ !
+ service instance 449 ethernet
+  encapsulation dot1q 449
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 449
+ !
+ service instance 450 ethernet
+  encapsulation dot1q 450
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 450
+ !
+ service instance 451 ethernet
+  encapsulation dot1q 451
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 451
+ !
+ service instance 452 ethernet
+  encapsulation dot1q 452
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 452
+ !
+ service instance 453 ethernet
+  encapsulation dot1q 453
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 453
+ !
+ service instance 454 ethernet
+  encapsulation dot1q 454
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 454
+ !
+ service instance 455 ethernet
+  encapsulation dot1q 455
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 455
+ !
+ service instance 456 ethernet
+  encapsulation dot1q 456
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 456
+ !
+ service instance 457 ethernet
+  encapsulation dot1q 457
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 457
+ !
+ service instance 458 ethernet
+  encapsulation dot1q 458
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 458
+ !
+ service instance 459 ethernet
+  encapsulation dot1q 459
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 459
+ !
+ service instance 460 ethernet
+  encapsulation dot1q 460
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 460
+ !
+ service instance 461 ethernet
+  encapsulation dot1q 461
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 461
+ !
+ service instance 462 ethernet
+  encapsulation dot1q 462
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 462
+ !
+ service instance 463 ethernet
+  encapsulation dot1q 463
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 463
+ !
+ service instance 464 ethernet
+  encapsulation dot1q 464
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 464
+ !
+ service instance 465 ethernet
+  encapsulation dot1q 465
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 465
+ !
+ service instance 466 ethernet
+  encapsulation dot1q 466
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 466
+ !
+ service instance 467 ethernet
+  encapsulation dot1q 467
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 467
+ !
+ service instance 468 ethernet
+  encapsulation dot1q 468
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 468
+ !
+ service instance 469 ethernet
+  encapsulation dot1q 469
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 469
+ !
+ service instance 470 ethernet
+  encapsulation dot1q 470
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 470
+ !
+ service instance 471 ethernet
+  encapsulation dot1q 471
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 471
+ !
+ service instance 472 ethernet
+  encapsulation dot1q 472
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 472
+ !
+ service instance 473 ethernet
+  encapsulation dot1q 473
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 473
+ !
+ service instance 474 ethernet
+  encapsulation dot1q 474
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 474
+ !
+ service instance 475 ethernet
+  encapsulation dot1q 475
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 475
+ !
+ service instance 476 ethernet
+  encapsulation dot1q 476
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 476
+ !
+ service instance 477 ethernet
+  encapsulation dot1q 477
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 477
+ !
+ service instance 478 ethernet
+  encapsulation dot1q 478
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 478
+ !
+ service instance 479 ethernet
+  encapsulation dot1q 479
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 479
+ !
+ service instance 480 ethernet
+  encapsulation dot1q 480
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 480
+ !
+ service instance 481 ethernet
+  encapsulation dot1q 481
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 481
+ !
+ service instance 482 ethernet
+  encapsulation dot1q 482
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 482
+ !
+ service instance 483 ethernet
+  encapsulation dot1q 483
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 483
+ !
+ service instance 484 ethernet
+  encapsulation dot1q 484
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 484
+ !
+ service instance 485 ethernet
+  encapsulation dot1q 485
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 485
+ !
+ service instance 486 ethernet
+  encapsulation dot1q 486
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 486
+ !
+ service instance 487 ethernet
+  encapsulation dot1q 487
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 487
+ !
+ service instance 488 ethernet
+  encapsulation dot1q 488
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 488
+ !
+ service instance 489 ethernet
+  encapsulation dot1q 489
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 489
+ !
+ service instance 490 ethernet
+  encapsulation dot1q 490
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 490
+ !
+ service instance 491 ethernet
+  encapsulation dot1q 491
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 491
+ !
+ service instance 492 ethernet
+  encapsulation dot1q 492
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 492
+ !
+ service instance 493 ethernet
+  encapsulation dot1q 493
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 493
+ !
+ service instance 494 ethernet
+  encapsulation dot1q 494
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 494
+ !
+ service instance 495 ethernet
+  encapsulation dot1q 495
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 495
+ !
+ service instance 496 ethernet
+  encapsulation dot1q 496
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 496
+ !
+ service instance 497 ethernet
+  encapsulation dot1q 497
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 497
+ !
+ service instance 498 ethernet
+  encapsulation dot1q 498
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 498
+ !
+ service instance 499 ethernet
+  encapsulation dot1q 499
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 499
+ !
+ service instance 500 ethernet
+  encapsulation dot1q 500
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 500
+ !
+ service instance 501 ethernet
+  encapsulation dot1q 501
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 501
+ !
+ service instance 502 ethernet
+  encapsulation dot1q 502
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 502
+ !
+ service instance 503 ethernet
+  encapsulation dot1q 503
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 503
+ !
+ service instance 504 ethernet
+  encapsulation dot1q 504
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 504
+ !
+ service instance 505 ethernet
+  encapsulation dot1q 505
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 505
+ !
+ service instance 506 ethernet
+  encapsulation dot1q 506
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 506
+ !
+ service instance 507 ethernet
+  encapsulation dot1q 507
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 507
+ !
+ service instance 508 ethernet
+  encapsulation dot1q 508
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 508
+ !
+ service instance 509 ethernet
+  encapsulation dot1q 509
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 509
+ !
+ service instance 510 ethernet
+  encapsulation dot1q 510
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 510
+ !
+ service instance 511 ethernet
+  encapsulation dot1q 511
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 511
+ !
+ service instance 512 ethernet
+  encapsulation dot1q 512
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 512
+ !
+ service instance 513 ethernet
+  encapsulation dot1q 513
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 513
+ !
+ service instance 514 ethernet
+  encapsulation dot1q 514
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 514
+ !
+ service instance 515 ethernet
+  encapsulation dot1q 515
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 515
+ !
+ service instance 516 ethernet
+  encapsulation dot1q 516
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 516
+ !
+ service instance 517 ethernet
+  encapsulation dot1q 517
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 517
+ !
+ service instance 518 ethernet
+  encapsulation dot1q 518
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 518
+ !
+ service instance 519 ethernet
+  encapsulation dot1q 519
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 519
+ !
+ service instance 520 ethernet
+  encapsulation dot1q 520
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 520
+ !
+ service instance 521 ethernet
+  encapsulation dot1q 521
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 521
+ !
+ service instance 522 ethernet
+  encapsulation dot1q 522
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 522
+ !
+ service instance 523 ethernet
+  encapsulation dot1q 523
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 523
+ !
+ service instance 524 ethernet
+  encapsulation dot1q 524
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 524
+ !
+ service instance 525 ethernet
+  encapsulation dot1q 525
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 525
+ !
+ service instance 526 ethernet
+  encapsulation dot1q 526
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 526
+ !
+ service instance 527 ethernet
+  encapsulation dot1q 527
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 527
+ !
+ service instance 528 ethernet
+  encapsulation dot1q 528
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 528
+ !
+ service instance 529 ethernet
+  encapsulation dot1q 529
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 529
+ !
+ service instance 530 ethernet
+  encapsulation dot1q 530
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 530
+ !
+ service instance 531 ethernet
+  encapsulation dot1q 531
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 531
+ !
+ service instance 532 ethernet
+  encapsulation dot1q 532
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 532
+ !
+ service instance 533 ethernet
+  encapsulation dot1q 533
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 533
+ !
+ service instance 534 ethernet
+  encapsulation dot1q 534
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 534
+ !
+ service instance 535 ethernet
+  encapsulation dot1q 535
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 535
+ !
+ service instance 536 ethernet
+  encapsulation dot1q 536
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 536
+ !
+ service instance 537 ethernet
+  encapsulation dot1q 537
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 537
+ !
+ service instance 538 ethernet
+  encapsulation dot1q 538
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 538
+ !
+ service instance 539 ethernet
+  encapsulation dot1q 539
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 539
+ !
+ service instance 540 ethernet
+  encapsulation dot1q 540
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 540
+ !
+ service instance 541 ethernet
+  encapsulation dot1q 541
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 541
+ !
+ service instance 542 ethernet
+  encapsulation dot1q 542
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 542
+ !
+ service instance 543 ethernet
+  encapsulation dot1q 543
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 543
+ !
+ service instance 544 ethernet
+  encapsulation dot1q 544
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 544
+ !
+ service instance 545 ethernet
+  encapsulation dot1q 545
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 545
+ !
+ service instance 546 ethernet
+  encapsulation dot1q 546
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 546
+ !
+ service instance 547 ethernet
+  encapsulation dot1q 547
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 547
+ !
+ service instance 548 ethernet
+  encapsulation dot1q 548
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 548
+ !
+ service instance 549 ethernet
+  encapsulation dot1q 549
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 549
+ !
+ service instance 550 ethernet
+  encapsulation dot1q 550
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 550
+ !
+ service instance 551 ethernet
+  encapsulation dot1q 551
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 551
+ !
+ service instance 552 ethernet
+  encapsulation dot1q 552
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 552
+ !
+ service instance 553 ethernet
+  encapsulation dot1q 553
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 553
+ !
+ service instance 554 ethernet
+  encapsulation dot1q 554
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 554
+ !
+ service instance 555 ethernet
+  encapsulation dot1q 555
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 555
+ !
+ service instance 556 ethernet
+  encapsulation dot1q 556
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 556
+ !
+ service instance 557 ethernet
+  encapsulation dot1q 557
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 557
+ !
+ service instance 558 ethernet
+  encapsulation dot1q 558
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 558
+ !
+ service instance 559 ethernet
+  encapsulation dot1q 559
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 559
+ !
+ service instance 560 ethernet
+  encapsulation dot1q 560
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 560
+ !
+ service instance 561 ethernet
+  encapsulation dot1q 561
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 561
+ !
+ service instance 562 ethernet
+  encapsulation dot1q 562
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 562
+ !
+ service instance 563 ethernet
+  encapsulation dot1q 563
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 563
+ !
+ service instance 564 ethernet
+  encapsulation dot1q 564
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 564
+ !
+ service instance 565 ethernet
+  encapsulation dot1q 565
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 565
+ !
+ service instance 566 ethernet
+  encapsulation dot1q 566
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 566
+ !
+ service instance 567 ethernet
+  encapsulation dot1q 567
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 567
+ !
+ service instance 568 ethernet
+  encapsulation dot1q 568
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 568
+ !
+ service instance 569 ethernet
+  encapsulation dot1q 569
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 569
+ !
+ service instance 570 ethernet
+  encapsulation dot1q 570
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 570
+ !
+ service instance 571 ethernet
+  encapsulation dot1q 571
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 571
+ !
+ service instance 572 ethernet
+  encapsulation dot1q 572
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 572
+ !
+ service instance 573 ethernet
+  encapsulation dot1q 573
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 573
+ !
+ service instance 574 ethernet
+  encapsulation dot1q 574
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 574
+ !
+ service instance 575 ethernet
+  encapsulation dot1q 575
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 575
+ !
+ service instance 576 ethernet
+  encapsulation dot1q 576
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 576
+ !
+ service instance 577 ethernet
+  encapsulation dot1q 577
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 577
+ !
+ service instance 578 ethernet
+  encapsulation dot1q 578
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 578
+ !
+ service instance 579 ethernet
+  encapsulation dot1q 579
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 579
+ !
+ service instance 580 ethernet
+  encapsulation dot1q 580
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 580
+ !
+ service instance 581 ethernet
+  encapsulation dot1q 581
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 581
+ !
+ service instance 582 ethernet
+  encapsulation dot1q 582
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 582
+ !
+ service instance 583 ethernet
+  encapsulation dot1q 583
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 583
+ !
+ service instance 584 ethernet
+  encapsulation dot1q 584
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 584
+ !
+ service instance 585 ethernet
+  encapsulation dot1q 585
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 585
+ !
+ service instance 586 ethernet
+  encapsulation dot1q 586
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 586
+ !
+ service instance 587 ethernet
+  encapsulation dot1q 587
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 587
+ !
+ service instance 588 ethernet
+  encapsulation dot1q 588
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 588
+ !
+ service instance 589 ethernet
+  encapsulation dot1q 589
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 589
+ !
+ service instance 590 ethernet
+  encapsulation dot1q 590
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 590
+ !
+ service instance 591 ethernet
+  encapsulation dot1q 591
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 591
+ !
+ service instance 592 ethernet
+  encapsulation dot1q 592
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 592
+ !
+ service instance 593 ethernet
+  encapsulation dot1q 593
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 593
+ !
+ service instance 594 ethernet
+  encapsulation dot1q 594
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 594
+ !
+ service instance 595 ethernet
+  encapsulation dot1q 595
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 595
+ !
+ service instance 596 ethernet
+  encapsulation dot1q 596
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 596
+ !
+ service instance 597 ethernet
+  encapsulation dot1q 597
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 597
+ !
+ service instance 598 ethernet
+  encapsulation dot1q 598
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 598
+ !
+ service instance 599 ethernet
+  encapsulation dot1q 599
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 599
+ !
+ service instance 600 ethernet
+  encapsulation dot1q 600
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 600
+ !
+ service instance 1103 ethernet
+  encapsulation dot1q 1103
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1103
+ !
+ service instance 1104 ethernet
+  encapsulation dot1q 1104
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1104
+ !
+ service instance 1105 ethernet
+  encapsulation dot1q 1105
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1105
+ !
+ service instance 1106 ethernet
+  encapsulation dot1q 1106
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1106
+ !
+ service instance 1107 ethernet
+  encapsulation dot1q 1107
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1107
+ !
+ service instance 1108 ethernet
+  encapsulation dot1q 1108
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1108
+ !
+ service instance 1109 ethernet
+  encapsulation dot1q 1109
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1109
+ !
+ service instance 1110 ethernet
+  encapsulation dot1q 1110
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1110
+ !
+ service instance 1111 ethernet
+  encapsulation dot1q 1111
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1111
+ !
+ service instance 1112 ethernet
+  encapsulation dot1q 1112
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1112
+ !
+ service instance 1113 ethernet
+  encapsulation dot1q 1113
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1113
+ !
+ service instance 1114 ethernet
+  encapsulation dot1q 1114
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1114
+ !
+ service instance 1115 ethernet
+  encapsulation dot1q 1115
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1115
+ !
+ service instance 1116 ethernet
+  encapsulation dot1q 1116
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1116
+ !
+ service instance 1117 ethernet
+  encapsulation dot1q 1117
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1117
+ !
+ service instance 1118 ethernet
+  encapsulation dot1q 1118
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1118
+ !
+ service instance 1119 ethernet
+  encapsulation dot1q 1119
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1119
+ !
+ service instance 1120 ethernet
+  encapsulation dot1q 1120
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1120
+ !
+ service instance 1121 ethernet
+  encapsulation dot1q 1121
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1121
+ !
+ service instance 1122 ethernet
+  encapsulation dot1q 1122
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1122
+ !
+ service instance 1123 ethernet
+  encapsulation dot1q 1123
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1123
+ !
+ service instance 1124 ethernet
+  encapsulation dot1q 1124
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1124
+ !
+ service instance 1125 ethernet
+  encapsulation dot1q 1125
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1125
+ !
+ service instance 1126 ethernet
+  encapsulation dot1q 1126
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1126
+ !
+ service instance 1127 ethernet
+  encapsulation dot1q 1127
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1127
+ !
+ service instance 1128 ethernet
+  encapsulation dot1q 1128
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1128
+ !
+ service instance 1129 ethernet
+  encapsulation dot1q 1129
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1129
+ !
+ service instance 1130 ethernet
+  encapsulation dot1q 1130
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1130
+ !
+ service instance 1131 ethernet
+  encapsulation dot1q 1131
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1131
+ !
+ service instance 1132 ethernet
+  encapsulation dot1q 1132
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1132
+ !
+ service instance 1133 ethernet
+  encapsulation dot1q 1133
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1133
+ !
+ service instance 1134 ethernet
+  encapsulation dot1q 1134
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1134
+ !
+ service instance 1135 ethernet
+  encapsulation dot1q 1135
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1135
+ !
+ service instance 1136 ethernet
+  encapsulation dot1q 1136
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1136
+ !
+ service instance 1137 ethernet
+  encapsulation dot1q 1137
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1137
+ !
+ service instance 1138 ethernet
+  encapsulation dot1q 1138
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1138
+ !
+ service instance 1139 ethernet
+  encapsulation dot1q 1139
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1139
+ !
+ service instance 1140 ethernet
+  encapsulation dot1q 1140
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1140
+ !
+ service instance 1141 ethernet
+  encapsulation dot1q 1141
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1141
+ !
+ service instance 1142 ethernet
+  encapsulation dot1q 1142
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1142
+ !
+ service instance 1143 ethernet
+  encapsulation dot1q 1143
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1143
+ !
+ service instance 1144 ethernet
+  encapsulation dot1q 1144
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1144
+ !
+ service instance 1145 ethernet
+  encapsulation dot1q 1145
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1145
+ !
+ service instance 1146 ethernet
+  encapsulation dot1q 1146
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1146
+ !
+ service instance 1147 ethernet
+  encapsulation dot1q 1147
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1147
+ !
+ service instance 1148 ethernet
+  encapsulation dot1q 1148
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1148
+ !
+ service instance 1149 ethernet
+  encapsulation dot1q 1149
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1149
+ !
+ service instance 1150 ethernet
+  encapsulation dot1q 1150
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1150
+ !
+ service instance 1151 ethernet
+  encapsulation dot1q 1151
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1151
+ !
+ service instance 1152 ethernet
+  encapsulation dot1q 1152
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1152
+ !
+ service instance 1153 ethernet
+  encapsulation dot1q 1153
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1153
+ !
+ service instance 1154 ethernet
+  encapsulation dot1q 1154
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1154
+ !
+ service instance 1155 ethernet
+  encapsulation dot1q 1155
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1155
+ !
+ service instance 1156 ethernet
+  encapsulation dot1q 1156
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1156
+ !
+ service instance 1157 ethernet
+  encapsulation dot1q 1157
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1157
+ !
+ service instance 1158 ethernet
+  encapsulation dot1q 1158
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1158
+ !
+ service instance 1159 ethernet
+  encapsulation dot1q 1159
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1159
+ !
+ service instance 1160 ethernet
+  encapsulation dot1q 1160
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1160
+ !
+ service instance 1161 ethernet
+  encapsulation dot1q 1161
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1161
+ !
+ service instance 1162 ethernet
+  encapsulation dot1q 1162
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1162
+ !
+ service instance 1163 ethernet
+  encapsulation dot1q 1163
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1163
+ !
+ service instance 1164 ethernet
+  encapsulation dot1q 1164
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1164
+ !
+ service instance 1165 ethernet
+  encapsulation dot1q 1165
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1165
+ !
+ service instance 1166 ethernet
+  encapsulation dot1q 1166
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1166
+ !
+ service instance 1167 ethernet
+  encapsulation dot1q 1167
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1167
+ !
+ service instance 1168 ethernet
+  encapsulation dot1q 1168
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1168
+ !
+ service instance 1169 ethernet
+  encapsulation dot1q 1169
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1169
+ !
+ service instance 1170 ethernet
+  encapsulation dot1q 1170
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1170
+ !
+ service instance 1171 ethernet
+  encapsulation dot1q 1171
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1171
+ !
+ service instance 1172 ethernet
+  encapsulation dot1q 1172
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1172
+ !
+ service instance 1173 ethernet
+  encapsulation dot1q 1173
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1173
+ !
+ service instance 1174 ethernet
+  encapsulation dot1q 1174
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1174
+ !
+ service instance 1175 ethernet
+  encapsulation dot1q 1175
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1175
+ !
+ service instance 1176 ethernet
+  encapsulation dot1q 1176
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1176
+ !
+ service instance 1177 ethernet
+  encapsulation dot1q 1177
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1177
+ !
+ service instance 1178 ethernet
+  encapsulation dot1q 1178
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1178
+ !
+ service instance 1179 ethernet
+  encapsulation dot1q 1179
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1179
+ !
+ service instance 1180 ethernet
+  encapsulation dot1q 1180
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1180
+ !
+ service instance 1181 ethernet
+  encapsulation dot1q 1181
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1181
+ !
+ service instance 1182 ethernet
+  encapsulation dot1q 1182
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1182
+ !
+ service instance 1183 ethernet
+  encapsulation dot1q 1183
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1183
+ !
+ service instance 1184 ethernet
+  encapsulation dot1q 1184
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1184
+ !
+ service instance 1185 ethernet
+  encapsulation dot1q 1185
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1185
+ !
+ service instance 1186 ethernet
+  encapsulation dot1q 1186
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1186
+ !
+ service instance 1187 ethernet
+  encapsulation dot1q 1187
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1187
+ !
+ service instance 1188 ethernet
+  encapsulation dot1q 1188
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1188
+ !
+ service instance 1189 ethernet
+  encapsulation dot1q 1189
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1189
+ !
+ service instance 1190 ethernet
+  encapsulation dot1q 1190
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1190
+ !
+ service instance 1191 ethernet
+  encapsulation dot1q 1191
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1191
+ !
+ service instance 1192 ethernet
+  encapsulation dot1q 1192
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1192
+ !
+ service instance 1193 ethernet
+  encapsulation dot1q 1193
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1193
+ !
+ service instance 1194 ethernet
+  encapsulation dot1q 1194
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1194
+ !
+ service instance 1195 ethernet
+  encapsulation dot1q 1195
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1195
+ !
+ service instance 1196 ethernet
+  encapsulation dot1q 1196
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1196
+ !
+ service instance 1197 ethernet
+  encapsulation dot1q 1197
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1197
+ !
+ service instance 1198 ethernet
+  encapsulation dot1q 1198
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1198
+ !
+ service instance 1199 ethernet
+  encapsulation dot1q 1199
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1199
+ !
+ service instance 1200 ethernet
+  encapsulation dot1q 1200
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1200
+ !
+ service instance 1202 ethernet
+  encapsulation dot1q 1202
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1202
+ !
+ service instance 1203 ethernet
+  encapsulation dot1q 1203
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1203
+ !
+ service instance 1204 ethernet
+  encapsulation dot1q 1204
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1204
+ !
+ service instance 1205 ethernet
+  encapsulation dot1q 1205
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1205
+ !
+ service instance 1206 ethernet
+  encapsulation dot1q 1206
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1206
+ !
+ service instance 1207 ethernet
+  encapsulation dot1q 1207
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1207
+ !
+ service instance 1208 ethernet
+  encapsulation dot1q 1208
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1208
+ !
+ service instance 1209 ethernet
+  encapsulation dot1q 1209
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1209
+ !
+ service instance 1210 ethernet
+  encapsulation dot1q 1210
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1210
+ !
+!
+interface GigabitEthernet0/1/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/1
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/4
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/5
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/6
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1/7
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0
+ description To-NMSSW-AIS-SCT2-01(Gig 1/0/10)
+ vrf forwarding Mgmt-intf
+ ip address 192.168.11.30 255.255.255.0
+ negotiation auto
+ cdp enable
+!
+interface BDI100
+ description REP Ring Cisco OAM
+ ip address 10.101.0.20 255.255.255.0
+!
+ip forward-protocol nd
+!
+ip ftp source-interface GigabitEthernet0
+no ip http server
+no ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip route 0.0.0.0 0.0.0.0 10.101.0.1
+!
+logging facility syslog
+logging source-interface BDI100
+logging host 10.1.0.11
+logging host 10.1.0.12
+!
+snmp-server community cisco RO
+snmp-server community IPRAN#SBN RO
+snmp-server community BKK_IPRAN#SBN RW
+snmp-server trap-source BDI100
+snmp-server ip dscp 32
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps ospf state-change if-state-change neighbor-state-change
+snmp-server enable traps bgp state-changes all
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps isis state-change
+snmp-server enable traps ipsla
+snmp-server enable traps ether-oam
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps entity-state
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps entity-sensor
+snmp-server enable traps resource-policy
+snmp-server enable traps flash insertion
+snmp-server enable traps flash removal
+snmp-server enable traps mpls ldp session-up session-down
+snmp-server enable traps pw vc
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps mac-notification
+snmp-server enable traps transceiver all
+snmp-server host 10.1.0.11 version 2c community 
+snmp ifmib ifindex persist
+snmp mib persist cbqos
+!
+l2vpn xconnect context LOOPTESTG001-G002
+ member GigabitEthernet0/0/1 service-instance 999 
+ member GigabitEthernet0/0/2 service-instance 999 
+!
+l2vpn xconnect context LOOPTESTG003-G004
+ member GigabitEthernet0/0/3 service-instance 999 
+ member GigabitEthernet0/0/4 service-instance 999 
+!
+l2vpn xconnect context LOOPTESTG005-G006
+ member GigabitEthernet0/0/5 service-instance 999 
+ member GigabitEthernet0/0/6 service-instance 999 
+!
+l2vpn xconnect context LOOPTESTG007-G009
+ member GigabitEthernet0/0/7 service-instance 999 
+ member GigabitEthernet0/0/9 service-instance 999 
+!
+l2vpn xconnect context LOOPTESTG008-G000
+ member GigabitEthernet0/0/8 service-instance 999 
+ member GigabitEthernet0/0/0 service-instance 999 
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ login local
+line vty 5 98
+ exec-timeout 5 0
+ login local
+!
+
+network-clock revertive 
+network-clock synchronization automatic
+network-clock synchronization mode QL-enabled
+network-clock input-source 2 interface TenGigabitEthernet0/0/12
+network-clock input-source 20 interface TenGigabitEthernet0/0/13
+esmc process
+ntp source BDI100
+ntp server 9.9.9.9 prefer
+!
+ptp clock boundary domain 24 hybrid  
+ output 1pps R0
+ clock-port DY-1 profile g8275.1 local-priority 129
+  transport ethernet multicast interface Te0/0/12 
+ clock-port DY-2 profile g8275.1 local-priority 130
+  transport ethernet multicast interface Te0/0/13 
+!
+!
+gnss slot R0
+ shutdown
+!
+!
+
+event manager environment _cron_entry 00 01 * * *
+event manager directory user policy "bootflash:/"
+!
+end

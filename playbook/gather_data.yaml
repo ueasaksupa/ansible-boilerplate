@@ -1,0 +1,39 @@
+- hosts: all
+  gather_facts: true
+  tasks:
+    - name: show commands on remote devices
+      iosxr_command:
+        commands:
+          - "{{ item }}"
+      loop:
+        - show version
+        - show platform
+        - show route summary
+        - show ip int brief
+        - show l2vpn xconnect brief
+        - show bfd session
+        - show l2vpn bridge-domain brief
+        - admin show environment
+      register: cli_output
+
+    # - name: "print output"
+    #   debug:
+    #     msg: "{{ cli_output }}"
+
+    - name: "Create directory for output in ddmmyyy_hhMM format"
+      file:
+        path: "output/{{ansible_date_time.day}}{{ansible_date_time.month}}{{ansible_date_time.year}}_{{ansible_date_time.hour}}{{ansible_date_time.minute}}"
+        state: directory
+        recurse: true
+      run_once: true
+
+    - name: "Create output file"
+      file:
+        path: "output/{{ansible_date_time.day}}{{ansible_date_time.month}}{{ansible_date_time.year}}_{{ansible_date_time.hour}}{{ansible_date_time.minute}}/{{ inventory_hostname }}.txt"
+        state: touch
+
+    - name: "Write output line to file"
+      lineinfile:
+        path: "output/{{ansible_date_time.day}}{{ansible_date_time.month}}{{ansible_date_time.year}}_{{ansible_date_time.hour}}{{ansible_date_time.minute}}/{{ inventory_hostname }}.txt"
+        line: "****** {{item.item}} ******\n{{ item.stdout[0] }}"
+      loop: "{{ cli_output.results }}"

@@ -1,0 +1,5 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: ping-01
+      ping:

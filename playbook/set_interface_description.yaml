@@ -1,0 +1,62 @@
+- hosts: asr9k
+  gather_facts: false
+  tags:
+    - asr9k
+  tasks:
+    - name: "show cdp neighbor"
+      iosxr_command:
+        commands:
+          - show cdp neighbor
+      register: cdp_neighbor
+
+    - name: set fact
+      set_fact:
+        cdp_output: []
+ 
+    - name: Loop through neighbor
+      set_fact:
+        cdp_output: '{{cdp_output + item | regex_findall("([^ ]+)[ ]+([^ ]+)[ ]+(\d+)[ ]+([RSTHIBr ]+)[ ]+([^ ]+ ?[^ ]+)[ ]+([GiHuTe]+.+)") }}'
+      loop: '{{ cdp_neighbor.stdout_lines[0][4:] }}'
+    
+    - name: Print cdp neighbor
+      debug:
+          msg: '{{ cdp_output }}'
+    
+    - name: Configure interface
+      iosxr_config:
+        parents: "interface {{item[1]}}"
+        lines:
+          - "description to {{item[0].strip()}} on {{item[5].strip()}}"
+      loop: '{{ cdp_output }}'
+
+
+- hosts: asr920
+  gather_facts: false
+  tags:
+    - asr920
+  tasks:
+    - name: "show cdp neighbor"
+      ios_command:
+        commands:
+          - show cdp neighbor
+      register: cdp_neighbor
+
+    - name: set fact
+      set_fact:
+        cdp_output: []
+ 
+    - name: Loop through neighbor
+      set_fact:
+        cdp_output: '{{cdp_output + item | regex_findall("([^ ]+)[ ]+([GiHuTe]+.+)[ ]+(\d+)[ ]+([A-Z ]+)[ ]+([^ ]+ ?[^ ]+)[ ]+([GiHuTe]+.+)") }}'
+      loop: '{{ cdp_neighbor.stdout_lines[0][5:] }}'
+    
+    - name: Print cdp neighbor
+      debug:
+          msg: '{{ cdp_output }}'
+    
+    - name: Configure interface
+      ios_config:
+        parents: "interface {{item[1]}}"
+        lines:
+          - "description to {{item[0].strip()}} on {{ item[5].replace(' ', '') }}"
+      loop: '{{ cdp_output }}'

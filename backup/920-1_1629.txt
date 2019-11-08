@@ -1,0 +1,582 @@
+Building configuration...
+
+  
+Current configuration : 12098 bytes
+!
+! Last configuration change at 14:29:01 ICT Tue Oct 8 2019 by cisco
+!
+version 15.6
+no service pad
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+service password-encryption
+service compress-config
+no platform punt-keepalive disable-kernel-core
+platform bfd-debug-trace 1
+platform xconnect load-balance-hash-algo mac-ip-instanceid
+platform qos-mark cos 4 vlanid 100 ipaddress 10.101.0.11
+platform tcam-parity-error enable
+platform tcam-threshold alarm-frequency 1
+platform shell
+platform reload immediate
+!
+hostname asr920-1
+!
+boot-start-marker
+boot system bootflash:asr920igp-universalk9.03.18.04.SP.156-2.SP4-ext.bin
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging buffered 125000 informational
+!
+no aaa new-model
+ethernet cfm ieee 
+ethernet cfm global
+ethernet cfm traceroute cache
+ethernet cfm traceroute cache hold-time 60
+ethernet cfm domain 101 level 0
+ service rep port
+  continuity-check
+  continuity-check interval 3.3ms
+  efd notify rep
+!
+ethernet cfm logging
+clock timezone ICT 7 0
+facility-alarm critical exceed-action shutdown
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+rep admin vlan 10
+!
+!
+!
+!
+multilink bundle-name authenticated
+license feature ptp
+license feature gnss
+license udi pid ASR-920-12SZ-IM-CC sn CAT2030U0FS
+license accept end user agreement
+license boot level advancedmetroipaccess
+archive
+ log config
+  logging enable
+!
+!
+spanning-tree mode mst
+spanning-tree mst 0 priority 61440
+sdm prefer default 
+no diagnostic bootup level
+!
+username cisco privilege 15 password 7 094F471A1A0A
+username ais privilege 15 password 7 14071D0855567A0B170B0767
+!
+redundancy
+!
+!
+!
+bridge-domain 3001 
+ no ip igmp snooping
+bridge-domain 3002 
+ no ip igmp snooping
+bridge-domain 3003 
+ no ip igmp snooping
+bridge-domain 3004 
+ no ip igmp snooping
+bridge-domain 3005 
+ no ip igmp snooping
+bridge-domain 3006 
+ no ip igmp snooping
+bridge-domain 3007 
+ no ip igmp snooping
+bridge-domain 3008 
+ no ip igmp snooping
+bridge-domain 3009 
+ no ip igmp snooping
+bridge-domain 3010 
+ no ip igmp snooping
+!
+!
+transceiver type all
+ monitoring
+cdp run
+!
+ip telnet tos 80
+!
+!
+class-map match-all af41
+ match dscp af41 
+class-map match-all ef
+ match dscp ef 
+class-map match-all af32
+ match dscp af32 
+class-map match-all af22
+ match dscp af22 
+class-map match-all be
+ match dscp default 
+class-map match-all af11
+ match dscp af11 
+class-map match-all cos5
+ match cos  5 
+class-map match-all cos4
+ match cos  4 
+class-map match-all cos3
+ match cos  3 
+class-map match-all cos2
+ match cos  2 
+class-map match-all cos1
+ match cos  1 
+class-map match-all cos0
+ match cos  0 
+class-map match-all qos5
+ match qos-group 5
+class-map match-any qos4
+ match qos-group 4
+ match dscp cs4 
+class-map match-all qos1
+ match qos-group 1
+class-map match-all qos3
+ match qos-group 3
+class-map match-all qos2
+ match qos-group 2
+!
+policy-map NPM-INGRESS-NNI
+ class cos5
+  set qos-group 5
+ class cos3
+  set qos-group 3
+ class cos1
+  set qos-group 1
+ class cos4
+  set qos-group 4
+ class cos2
+  set qos-group 2
+ class cos0
+  set qos-group 0
+policy-map BG_MARKING
+ class af41
+  set dscp default
+  set qos-group 0
+  set cos 0
+policy-map NPM-EGRESS-NNI
+ class qos5
+  set dscp ef
+  set cos 5
+  bandwidth remaining percent 30 
+ class qos3
+  bandwidth remaining percent 30 
+  set dscp af32
+  set cos 3
+ class qos2
+  priority level 1
+  set cos 2
+ class qos1
+  bandwidth remaining percent 30 
+  set dscp af11
+  set cos 1
+ class qos4
+  priority level 2
+  set dscp cs4
+  set cos 4
+ class class-default
+  queue-limit 10 us
+  set dscp default
+  set cos 0
+policy-map SERVICES_MARKING
+ class af41
+  set qos-group 5
+  set dscp ef
+  set cos 4
+ class af22
+  set qos-group 3
+  set dscp af32
+  set cos 3
+ class be
+  set dscp af11
+  set qos-group 1
+  set cos 1
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+ service instance 10 ethernet
+  encapsulation untagged
+  bridge-domain 101
+ !
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/3
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/4
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/5
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/6
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/7
+ no ip address
+ media-type rj45
+ negotiation auto
+ cdp enable
+ service instance 100 ethernet
+  encapsulation untagged
+  bridge-domain 100
+ !
+!
+interface GigabitEthernet0/0/8
+ no ip address
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/9
+ no ip address
+ media-type sfp
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/10
+ no ip address
+ media-type sfp
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet0/0/11
+ no ip address
+ negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/0/12
+ description To-AGG1_UPE1(TenGigE0/7/0/2)
+ mtu 9216
+ no ip address
+ logging event link-status
+ load-interval 30
+ carrier-delay msec 0
+ rep segment 101 edge no-neighbor
+ rep stcn stp
+ synchronous mode
+ cdp enable
+ ethernet cfm mep domain 101 mpid 2 service rep
+   alarm notification all
+   continuity-check static rmep
+   rmep mpid 1
+ service-policy input NPM-INGRESS-NNI
+ service-policy output NPM-EGRESS-NNI
+ service instance 1 ethernet
+  encapsulation untagged
+  l2protocol peer cdp stp loam esmc ptppd
+  bridge-domain 1
+ !
+ service instance trunk 10 ethernet
+  encapsulation dot1q 10,81,100-600,1101-1210,3001-3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain from-encapsulation
+ !
+!
+interface TenGigabitEthernet0/0/13
+ description To-asr920-2(Ten 0/0/12)
+ mtu 9216
+ no ip address
+ logging event link-status
+ load-interval 30
+ carrier-delay msec 0
+ rep segment 101
+ synchronous mode
+ cdp enable
+ ethernet cfm mep domain 101 mpid 3 service rep
+   alarm notification all
+   continuity-check static rmep
+   rmep mpid 4
+ service-policy input NPM-INGRESS-NNI
+ service-policy output NPM-EGRESS-NNI
+ service instance 1 ethernet
+  encapsulation untagged
+  l2protocol peer cdp loam esmc ptppd
+  bridge-domain 2
+ !
+ service instance trunk 10 ethernet
+  encapsulation dot1q 10,81,100-600,1101-1210,3001-3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain from-encapsulation
+ !
+!
+interface TenGigabitEthernet0/0/14
+ description To-Tester(2/9)
+ mtu 9216
+ no ip address
+ load-interval 30
+ cdp enable
+ spanning-tree portfast trunk
+ service-policy input SERVICES_MARKING
+ service instance 1101 ethernet
+  encapsulation dot1q 1101
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1101
+ !
+ service instance 3001 ethernet
+  encapsulation dot1q 3001
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3001
+ !
+ service instance 3002 ethernet
+  encapsulation dot1q 3002
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3002
+ !
+ service instance 3003 ethernet
+  encapsulation dot1q 3003
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3003
+ !
+ service instance 3004 ethernet
+  encapsulation dot1q 3004
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3004
+ !
+ service instance 3005 ethernet
+  encapsulation dot1q 3005
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3005
+ !
+ service instance 3006 ethernet
+  encapsulation dot1q 3006
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3006
+ !
+ service instance 3007 ethernet
+  encapsulation dot1q 3007
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3007
+ !
+ service instance 3008 ethernet
+  encapsulation dot1q 3008
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3008
+ !
+ service instance 3009 ethernet
+  encapsulation dot1q 3009
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3009
+ !
+ service instance 3010 ethernet
+  encapsulation dot1q 3010
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 3010
+ !
+!
+interface TenGigabitEthernet0/0/15
+ description To-Tester(2/10)
+ mtu 9216
+ no ip address
+ load-interval 30
+ cdp enable
+ service-policy input BG_MARKING
+ service instance 1103 ethernet
+  encapsulation dot1q 1103
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1103
+ !
+ service instance 1104 ethernet
+  encapsulation dot1q 1104
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1104
+ !
+ service instance 1105 ethernet
+  encapsulation dot1q 1105
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1105
+ !
+ service instance 1106 ethernet
+  encapsulation dot1q 1106
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1106
+ !
+ service instance 1107 ethernet
+  encapsulation dot1q 1107
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1107
+ !
+ service instance 1108 ethernet
+  encapsulation dot1q 1108
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1108
+ !
+ service instance 1109 ethernet
+  encapsulation dot1q 1109
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1109
+ !
+ service instance 1110 ethernet
+  encapsulation dot1q 1110
+  rewrite ingress tag pop 1 symmetric
+  bridge-domain 1110
+ !
+!
+interface GigabitEthernet0
+ description To-NMSSW-AIS-SCT2-01(Gig 1/0/1)
+ vrf forwarding Mgmt-intf
+ ip address 192.168.11.21 255.255.255.0
+ negotiation auto
+ cdp enable
+!
+interface BDI100
+ description REP Ring Cisco OAM
+ ip address 10.101.0.11 255.255.255.0
+!
+ip forward-protocol nd
+!
+ip ftp source-interface GigabitEthernet0
+no ip http server
+no ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip route 0.0.0.0 0.0.0.0 10.101.0.1
+!
+logging facility syslog
+logging source-interface BDI100
+logging host 10.1.0.11
+logging host 10.1.0.12
+!
+snmp-server community cisco RO
+snmp-server community IPRAN#SBN RO
+snmp-server community BKK_IPRAN#SBN RW
+snmp-server trap-source BDI100
+snmp-server ip dscp 32
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps ospf state-change if-state-change neighbor-state-change
+snmp-server enable traps bgp state-changes all
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps isis state-change
+snmp-server enable traps ipsla
+snmp-server enable traps ether-oam
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps entity-state
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps entity-sensor
+snmp-server enable traps resource-policy
+snmp-server enable traps flash insertion
+snmp-server enable traps flash removal
+snmp-server enable traps mpls ldp session-up session-down
+snmp-server enable traps pw vc
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps mac-notification
+snmp-server enable traps transceiver all
+snmp-server host 10.1.0.11 version 2c community 
+snmp ifmib ifindex persist
+snmp mib persist cbqos
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ login local
+line vty 5 98
+ exec-timeout 5 0
+ login local
+!
+
+network-clock revertive 
+network-clock synchronization automatic
+network-clock synchronization mode QL-enabled
+network-clock input-source 2 interface TenGigabitEthernet0/0/12
+network-clock input-source 20 interface TenGigabitEthernet0/0/13
+esmc process
+tod-clock input-source 1 internal
+ntp source BDI100
+ntp server 9.9.9.9 prefer
+!
+ptp clock boundary domain 24 hybrid  
+ clock-port DY-1 profile g8275.1 local-priority 129
+  transport ethernet multicast interface Te0/0/12 
+ clock-port DY-2 profile g8275.1 local-priority 130
+  transport ethernet multicast interface Te0/0/13 
+!
+!
+gnss slot R0
+ shutdown
+!
+!
+
+event manager environment _cron_entry 00 01 * * *
+event manager directory user policy "bootflash:/eem_scripts"
+!
+end

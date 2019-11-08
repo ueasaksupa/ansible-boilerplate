@@ -1,0 +1,36 @@
+- hosts: asr9k
+  gather_facts: true
+  tags:
+    - asr9k
+  tasks:
+    - name: "Create directory for output in ddmmyyyy format"
+      file:
+        path: "./backup/{{ansible_date_time.day}}{{ansible_date_time.month}}{{ansible_date_time.year}}"
+        state: directory
+        recurse: true
+      run_once: true
+    - name: Backup config for ASR9K
+      iosxr_config:
+        backup: yes
+        backup_options:
+          dir_path: ./backup
+          filename: "{{ inventory_hostname }}_{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt"
+
+- hosts: asr920
+  gather_facts: true
+  tags:
+    - asr920
+  tasks:
+    - name: "Create directory for output in ddmmyyyy format"
+      file:
+        path: "./backup/{{ansible_date_time.day}}{{ansible_date_time.month}}{{ansible_date_time.year}}"
+        state: directory
+        recurse: true
+      run_once: true
+    - name: Backup config for ASR920
+      ios_config:
+          save_when: always
+          backup: yes
+          backup_options:
+            dir_path: ./backup
+            filename: "{{ inventory_hostname }}_{{ansible_date_time.hour}}{{ansible_date_time.minute}}.txt"

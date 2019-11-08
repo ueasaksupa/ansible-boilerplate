@@ -1,0 +1,327 @@
+Building configuration...
+!! IOS XR Configuration 6.5.3
+!! Last configuration change at Mon Sep 23 16:09:47 2019 by cisco
+!
+hostname AGG3_NPE1
+clock timezone bangkok 7
+logging ipv4 dscp cs4
+logging trap informational
+logging console informational
+logging monitor debugging
+logging buffered 25000000
+logging buffered debugging
+logging facility syslog
+logging 192.168.11.127 vrf default port 999
+telnet vrf default ipv4 server max-servers 30
+cdp
+vrf l3vpn_1
+ address-family ipv4 unicast
+  import route-target
+   65001:1
+  !
+  export route-target
+   65001:1
+  !
+ !
+!
+snmp-server ifindex persist
+snmp-server ifmib stats cache
+snmp-server mibs cbqosmib persist
+snmp-server entityindex persist
+snmp-server vrf default
+ host 192.168.11.127 traps version 2c public
+!
+snmp-server ipv4 dscp cs4
+snmp-server community cisco RO SystemOwner
+snmp-server queue-length 1500
+snmp-server traps ntp
+snmp-server traps snmp linkup
+snmp-server traps snmp linkdown
+snmp-server traps snmp coldstart
+snmp-server traps snmp warmstart
+snmp-server traps config
+snmp-server traps entity
+snmp-server traps system
+snmp-server traps frequency synchronization
+snmp-server traps cisco-entity-ext
+snmp-server traps entity-state operstatus
+snmp-server traps entity-state switchover
+snmp-server traps entity-redundancy all
+snmp-server traps entity-redundancy status
+snmp-server traps entity-redundancy switchover
+bfd
+ multipath include location 0/0/CPU0
+ echo disable
+!
+interface Bundle-Ether103
+ bfd address-family ipv4 timers start 60
+ bfd address-family ipv4 timers nbr-unconfig 3600
+ bfd address-family ipv4 multiplier 3
+ bfd address-family ipv4 destination 1.0.13.1
+ bfd address-family ipv4 fast-detect
+ bfd address-family ipv4 minimum-interval 3
+ ipv4 address 1.0.13.2 255.255.255.252
+ bundle minimum-active links 1
+ load-interval 30
+!
+interface Bundle-Ether304
+ ipv4 address 1.0.34.1 255.255.255.252
+ bundle minimum-active links 2
+ load-interval 30
+!
+interface Loopback0
+ ipv4 address 3.3.3.3 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ description To-NMSSW-SCT2-01(Gi1/0/40)
+ cdp
+ ipv4 address 192.168.11.19 255.255.255.0
+!
+interface MgmtEth0/RP0/CPU0/1
+ shutdown
+!
+interface MgmtEth0/RP1/CPU0/0
+ description To-NMSSW-SCT2-01(Gi1/0/43)
+ cdp
+ ipv4 address 192.168.11.20 255.255.255.0
+!
+interface MgmtEth0/RP1/CPU0/1
+ shutdown
+!
+interface PTP0/RP0/CPU0/0
+ shutdown
+!
+interface HundredGigE0/0/0/0
+ bundle id 304 mode active
+ cdp
+!
+interface HundredGigE0/0/0/1
+ bundle id 103 mode active
+ cdp
+!
+interface HundredGigE0/0/0/2
+ description to-spirent-1/1
+ cdp
+!
+interface HundredGigE0/0/0/2.1
+ vrf l3vpn_1
+ ipv4 address 1.100.3.1 255.255.255.0
+ encapsulation dot1q 1
+!
+interface HundredGigE0/0/0/3
+ bundle id 103 mode active
+ cdp
+!
+interface HundredGigE0/0/0/4
+ bundle id 304 mode active
+ cdp
+!
+interface HundredGigE0/0/0/5
+ shutdown
+!
+interface HundredGigE0/0/0/6
+ shutdown
+!
+interface HundredGigE0/0/0/7
+ shutdown
+!
+interface HundredGigE0/1/0/0
+ shutdown
+!
+interface HundredGigE0/1/0/1
+ shutdown
+!
+interface HundredGigE0/1/0/2
+ shutdown
+!
+interface HundredGigE0/1/0/3
+ shutdown
+!
+interface HundredGigE0/1/0/4
+ shutdown
+!
+interface HundredGigE0/1/0/5
+ shutdown
+!
+interface HundredGigE0/1/0/6
+ shutdown
+!
+interface HundredGigE0/1/0/7
+ shutdown
+!
+interface HundredGigE0/2/0/0
+ shutdown
+!
+interface HundredGigE0/2/0/1
+ shutdown
+!
+interface HundredGigE0/2/0/2
+ shutdown
+!
+interface HundredGigE0/2/0/3
+ shutdown
+!
+interface HundredGigE0/2/0/4
+ shutdown
+!
+interface HundredGigE0/2/0/5
+ shutdown
+!
+interface HundredGigE0/2/0/6
+ shutdown
+!
+interface HundredGigE0/2/0/7
+ shutdown
+!
+interface HundredGigE0/3/0/0
+ shutdown
+!
+interface HundredGigE0/3/0/1
+ shutdown
+!
+interface HundredGigE0/3/0/2
+ shutdown
+!
+interface HundredGigE0/3/0/3
+ shutdown
+!
+interface HundredGigE0/3/0/4
+ shutdown
+!
+interface HundredGigE0/3/0/5
+ shutdown
+!
+interface HundredGigE0/3/0/6
+ shutdown
+!
+interface HundredGigE0/3/0/7
+ shutdown
+!
+!
+route-policy pass-all
+  pass
+end-policy
+!
+router isis core
+ set-overload-bit on-startup 360
+ is-type level-2-only
+ net 49.0001.0000.0000.0013.00
+ nsr
+ nsf cisco
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  router-id Loopback0
+  segment-routing mpls sr-prefer
+ !
+ interface Bundle-Ether103
+  circuit-type level-2-only
+  bfd minimum-interval 3
+  bfd multiplier 3
+  bfd fast-detect ipv4
+  point-to-point
+  link-down fast-detect
+  address-family ipv4 unicast
+   metric 10
+  !
+ !
+ interface Bundle-Ether304
+  circuit-type level-2-only
+  point-to-point
+  address-family ipv4 unicast
+   metric 10
+  !
+ !
+ interface Loopback0
+  passive
+  circuit-type level-2-only
+  address-family ipv4 unicast
+   prefix-sid index 3
+  !
+ !
+!
+router bgp 65001
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ neighbor-group core
+  remote-as 65001
+  update-source Loopback0
+  address-family vpnv4 unicast
+   next-hop-self
+  !
+ !
+ neighbor 1.1.1.1
+  use neighbor-group core
+ !
+ vrf l3vpn_1
+  rd 65001:1
+  address-family ipv4 unicast
+   redistribute connected
+  !
+  neighbor 1.100.3.2
+   remote-as 65002
+   address-family ipv4 unicast
+    route-policy pass-all in
+    route-policy pass-all out
+   !
+  !
+ !
+!
+mpls oam
+!
+segment-routing
+ global-block 16000 24000
+ traffic-eng
+  segment-list N1_U1_PRI
+   index 1 mpls label 16004
+   index 2 mpls label 16002
+   index 3 mpls label 16001
+  !
+  policy N1_U1_PRI
+   color 100 end-point ipv4 1.1.1.1
+   autoroute
+   !
+   candidate-paths
+    preference 100
+     explicit segment-list N1_U1_PRI
+     !
+    !
+    preference 200
+     dynamic
+     !
+    !
+   !
+  !
+ !
+!
+telemetry model-driven
+ destination-group telemetry_server
+  address-family ipv4 192.168.11.127 port 5432
+   encoding self-describing-gpb
+   protocol tcp
+  !
+ !
+ sensor-group Statistic
+  sensor-path Cisco-IOS-XR-wdsysmon-fd-oper:system-monitoring/cpu-utilization
+  sensor-path Cisco-IOS-XR-nto-misc-shmem-oper:memory-summary/nodes/node/summary
+  sensor-path Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/data-rate
+  sensor-path Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/generic-counters
+ !
+ subscription 1
+  sensor-group-id Statistic sample-interval 30000
+  destination-id telemetry_server
+ !
+!
+xml agent tty
+!
+netconf agent tty
+!
+netconf-yang agent
+ ssh
+!
+ssh server v2
+end

@@ -1,0 +1,246 @@
+Building configuration...
+!! IOS XR Configuration 6.5.3
+!! Last configuration change at Tue Oct  8 14:22:27 2019 by cisco
+!
+hostname AGG2_UPE2
+clock timezone bangkok 7
+logging ipv4 dscp cs4
+logging trap informational
+logging console informational
+logging monitor debugging
+logging buffered 25000000
+logging buffered debugging
+logging facility syslog
+logging 192.168.11.127 vrf default port 999
+telnet vrf default ipv4 server max-servers 30
+!interface HundredGigE0/0/0/0
+cdp
+snmp-server ifindex persist
+snmp-server ifmib stats cache
+snmp-server mibs cbqosmib persist
+snmp-server entityindex persist
+snmp-server vrf default
+ host 192.168.11.127 traps version 2c public
+!
+snmp-server ipv4 dscp cs4
+snmp-server community cisco RO SystemOwner
+snmp-server queue-length 1500
+snmp-server traps ntp
+snmp-server traps snmp linkup
+snmp-server traps snmp linkdown
+snmp-server traps snmp coldstart
+snmp-server traps snmp warmstart
+snmp-server traps config
+snmp-server traps entity
+snmp-server traps system
+snmp-server traps frequency synchronization
+snmp-server traps cisco-entity-ext
+snmp-server traps entity-state operstatus
+snmp-server traps entity-state switchover
+snmp-server traps entity-redundancy all
+snmp-server traps entity-redundancy status
+snmp-server traps entity-redundancy switchover
+interface Loopback0
+ ipv4 address 2.2.2.2 255.255.255.255
+!
+interface MgmtEth0/RSP0/CPU0/0
+ description To-NMSSW-SCT2-01(Gi1/0/28)
+ cdp
+ ipv4 address 192.168.11.13 255.255.255.0
+!
+interface MgmtEth0/RSP0/CPU0/1
+ shutdown
+!
+interface MgmtEth0/RSP1/CPU0/0
+ description To-NMSSW-SCT2-01(Gi1/0/29)
+ cdp
+ ipv4 address 192.168.11.14 255.255.255.0
+!
+interface MgmtEth0/RSP1/CPU0/1
+ shutdown
+!
+interface GigabitEthernet0/7/0/0
+ shutdown
+!
+interface GigabitEthernet0/7/0/1
+ shutdown
+!
+interface GigabitEthernet0/7/0/2
+ shutdown
+!
+interface GigabitEthernet0/7/0/3
+ shutdown
+!
+interface GigabitEthernet0/7/0/4
+ shutdown
+!
+interface GigabitEthernet0/7/0/5
+ shutdown
+!
+interface GigabitEthernet0/7/0/6
+ shutdown
+!
+interface GigabitEthernet0/7/0/7
+ shutdown
+!
+interface GigabitEthernet0/7/0/8
+ shutdown
+!
+interface GigabitEthernet0/7/0/9
+ shutdown
+!
+interface GigabitEthernet0/7/0/10
+ shutdown
+!
+interface GigabitEthernet0/7/0/11
+ shutdown
+!
+interface GigabitEthernet0/7/0/12
+ shutdown
+!
+interface GigabitEthernet0/7/0/13
+ shutdown
+!
+interface GigabitEthernet0/7/0/14
+ shutdown
+!
+interface GigabitEthernet0/7/0/15
+ shutdown
+!
+interface GigabitEthernet0/7/0/16
+ shutdown
+!
+interface GigabitEthernet0/7/0/17
+ shutdown
+!
+interface GigabitEthernet0/7/0/18
+ shutdown
+!
+interface GigabitEthernet0/7/0/19
+ shutdown
+!
+interface TenGigE0/7/1/0
+ cdp
+!
+interface TenGigE0/7/1/1
+ shutdown
+!
+interface TenGigE0/7/1/2
+ shutdown
+!
+interface TenGigE0/7/1/3
+ shutdown
+!
+interface TenGigE0/7/1/4
+ shutdown
+!
+interface TenGigE0/7/1/5
+ shutdown
+!
+interface TenGigE0/7/1/6
+ shutdown
+!
+interface TenGigE0/7/1/7
+ shutdown
+!
+interface PTP0/RSP0/CPU0/0
+ shutdown
+!
+interface HundredGigE0/0/0/0
+ cdp
+ ipv4 address 1.0.12.2 255.255.255.252
+ load-interval 30
+!
+interface HundredGigE0/0/0/1
+ cdp
+ ipv4 address 1.0.24.1 255.255.255.252
+ load-interval 30
+!
+interface HundredGigE0/0/1/0
+ shutdown
+!
+interface HundredGigE0/0/1/1
+ shutdown
+!
+interface HundredGigE0/1/0/0
+ shutdown
+!
+interface HundredGigE0/1/0/1
+ shutdown
+!
+interface HundredGigE0/1/1/0
+ shutdown
+!
+interface HundredGigE0/1/1/1
+ shutdown
+!
+router isis core
+ set-overload-bit on-startup 360
+ is-type level-2-only
+ net 49.0001.0000.0000.0012.00
+ nsr
+ nsf cisco
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  router-id Loopback0
+  segment-routing mpls sr-prefer
+ !
+ interface Loopback0
+  passive
+  circuit-type level-2-only
+  address-family ipv4 unicast
+   prefix-sid index 2
+  !
+ !
+ interface HundredGigE0/0/0/0
+  circuit-type level-2-only
+  point-to-point
+  address-family ipv4 unicast
+   metric 10
+  !
+ !
+ interface HundredGigE0/0/0/1
+  circuit-type level-2-only
+  point-to-point
+  address-family ipv4 unicast
+   metric 10
+  !
+ !
+!
+mpls oam
+!
+segment-routing
+ global-block 16000 24000
+ traffic-eng
+ !
+!
+telemetry model-driven
+ destination-group telemetry_server
+  address-family ipv4 192.168.11.127 port 5432
+   encoding self-describing-gpb
+   protocol tcp
+  !
+ !
+ sensor-group Statistic
+  sensor-path Cisco-IOS-XR-wdsysmon-fd-oper:system-monitoring/cpu-utilization
+  sensor-path Cisco-IOS-XR-nto-misc-shmem-oper:memory-summary/nodes/node/summary
+  sensor-path Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/data-rate
+  sensor-path Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/generic-counters
+ !
+ subscription 1
+  sensor-group-id Statistic sample-interval 30000
+  destination-id telemetry_server
+ !
+!
+xml agent tty
+!
+netconf agent tty
+!
+netconf-yang agent
+ ssh
+!
+ssh server v2
+end
