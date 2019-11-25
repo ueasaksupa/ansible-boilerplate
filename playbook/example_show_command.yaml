@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: show commands on remote devices
+      iosxr_command:
+        commands:
+          - "show ip interface brief"
+      register: cli_output
+
+    - name: "print output"
+      debug:
+        msg: "{{ cli_output }}"
